@@ -1,0 +1,69 @@
+header {
+  background-color: #4a148c;
+}
+header img {
+  margin-left: 10px;
+}
+header i {
+  color: white;
+  font-size: 2rem;
+  padding: 10px;
+}
+
+header i {
+  color: white;
+  font-size: 2rem;
+  padding: 10px;
+}
+
+.btn.btn-primary {
+  background-color: #ffd700;
+  border-color: #ffd700;
+}
+.btn.btn-secondary {
+  background-color: #c0c0c0;
+  border-color: #c0c0c0;
+}
+.btn.btn-primary, .btn.btn-secondary {
+  color: #212529;
+}
+
+h3.card-title {
+  color: #4a148c;
+}
+
+input[type=range] {
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #000; /* Thumb color */
+  cursor: pointer;
+  margin-top: -6px; /* Align thumb with track */
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  background: #000; /* Track color */
+  height: 8px;
+  border-radius: 5px;
+}
+
+div.col {
+  padding: 1rem;
+}
+
+footer {
+  background-color: #f3f4f6;
+}
+footer ul {
+  padding: 1rem;
+}
+
+/*# sourceMappingURL=main.css.map */

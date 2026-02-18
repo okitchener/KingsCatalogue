@@ -1,0 +1,66 @@
+$royal-purple: #4a148c;
+$gold: #ffd700;
+$silver: #c0c0c0;
+$black: #000;
+$text-dark: #212529;
+$footer-bg: #f3f4f6;
+
+header {
+    background-color: $royal-purple;
+ img { margin-left: 10px;}
+ i { 
+    color: white; 
+    font-size: 2rem; 
+    padding: 10px;}
+}
+
+
+header i {
+    color: white;
+    font-size: 2rem;
+    padding: 10px;
+}
+
+
+.btn {
+  &.btn-primary { background-color: $gold; border-color: $gold; }
+  &.btn-secondary { background-color: $silver; border-color: $silver; }
+  &.btn-primary,
+  &.btn-secondary { color: $text-dark; }
+}
+
+h3.card-title {
+    color: $royal-purple;
+
+}
+
+input[type="range"] {
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: $black; /* Thumb color */
+  
+  cursor: pointer;
+  margin-top: -6px; /* Align thumb with track */
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: $black; /* Track color */
+  height: 8px;
+  border-radius: 5px;
+}
+div.col {
+    padding: 1rem;
+}
+ footer {
+    background-color: $footer-bg;
+    ul { padding: 1rem;}
+ }

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King's Catalogue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="icon" type="image/png" href="media/crown.png">
+</head>
+
+<body>
+    <!-- Header mostly pulled from bootstrap-->
+    <header class="mb-0 border-bottom">
+        <!-- Mobile header -->
+        <div class="d-flex d-md-none align-items-center justify-content-between py-2 px-3">
+            <button class="btn p-0 border-0 text-white" aria-label="Open menu"><i class="bi bi-list fs-2"></i></button>
+            <a href="/" class="link-body-emphasis text-decoration-none"><span class="fs-5 text-white text-nowrap">Kings
+                    Catalogue</span></a>
+            <button type="button" class="btn p-0 border-0 bg-transparent text-white" aria-label="Open cart"
+  data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+  <i class="bi bi-cart3 fs-3"></i>
+</button>
+        </div>
+        <!-- Desktop header -->
+        <div class="d-none d-md-flex flex-wrap align-items-center justify-content-md-between py-3">
+            <div class="col-md-3 mb-2 mb-md-0">
+                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <img src="media/crown.png" alt="Crown Icon" width="32" height="32" class="me-2">
+                    <span class="fs-4 text-white text-nowrap">Kings Catalogue</span>
+                </a>
+            </div>
+            <div class="col-md-6 ps-md-3"><input type="search" class="form-control" placeholder="Search royal wares..."
+                    aria-label="Search"></div>
+            <div class="col-md-3 text-end">
+                <button type="button" class="btn p-0 border-0 bg-transparent text-white" aria-label="Open cart"
+  data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+  <i class="bi bi-cart3"></i>
+</button>
+                <button type="button" class="btn p-0 border-0 bg-transparent text-white" aria-label="Open profile">
+  <i class="bi bi-person-fill"></i>
+</button>
+            </div>
+        </div>
+    </header>
+    <!-- Mobile search bar -->
+    <div class="d-block d-md-none px-3 py-2 border-bottom">
+        <input type="search" class="form-control" placeholder="Search royal wares..." aria-label="Search">
+    </div>
+   <main class="container-fluid">
+  <div class="row">
+    <!-- Left side filter column -->
+    <aside class="col-12 col-md-2 pt-3 border-end">
+      <h4>Filters:</h4>
+      <h5>Category</h5>
+      <div class="form-check flex-column">
+        <div class="p-2">
+          <input class="form-check-input" type="checkbox" value="" id="category1">
+          <label class="form-check-label" for="category1">Clothing</label>
+        </div>
+        <div class="p-2">
+          <input class="form-check-input" type="checkbox" value="" id="category2">
+          <label class="form-check-label" for="category2">Hygiene</label>
+        </div>
+        <div class="p-2">
+          <input class="form-check-input" type="checkbox" value="" id="category3">
+          <label class="form-check-label" for="category3">Accessories</label>
+        </div>
+      </div>
+      <!-- Price range slider -->
+      <label for="range1" class="form-label">Price range</label>
+<input type="range" class="form-range" id="range1">
+<!--Sort by Dropdown-->
+      <label for="sortBy" class="form-label">Sort by</label>
+      <select class="form-select" id="sortBy">
+        <option value="featured">Featured</option>
+        <option value="priceLowHigh">Price: Low to High</option>
+        <option value="priceHighLow">Price: High to Low</option>
+        <option value="newest">Newest Arrivals</option>
+      </select>
+    </aside>
+
+    <!-- Cards on the right -->
+    <section class="col-12 col-md-10 pt-3">
+  <div class="row row-cols-1 row-cols-md-3 g-3">
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+            <div class="ratio ratio-4x3 mb-3">
+            <img alt="placeholder" src="media/crownProduct.png" class="mb-3">
+            </div>
+          <h5 class="card-title">Crown</h5>
+          <p class="card-text">Classic royal crown</p>
+          <h3 class="card-title">$299.99</h3>
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#productDetailsModal">View details</button>
+          <a href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+            <!--full width rectangle picture holder-->
+            <div class="ratio ratio-4x3 mb-3">
+            <img alt="placeholder" src="media/soap-small.jpg"  class="mb-3">
+            </div>
+          <h5 class="card-title">Royal Soap</h5>
+          <p class="card-text">Luxurious handcrafted soap with natural ingredients</p>
+          <h3 class="card-title">$499.99</h3>
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#productDetailsModal2">View details</button>
+          <a href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+            <div class="ratio ratio-4x3 mb-3">
+            <img alt="placeholder" src="media/fancySuit.webp" class="mb-3">
+            </div>
+          <h5 class="card-title">Fancy Suit</h5>
+          <p class="card-text">An elegant suit for special occasions</p>
+          <h3 class="card-title">$475.99</h3>
+            <a href="#" class="btn btn-secondary">View details</a>
+          <a href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Row 2-->
+  <!--<div class="row row-cols-1 row-cols-md-3 g-3">
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+            <img alt="placeholder" src="https://via.placeholder.com/150" height ="150" width="150" class="mb-3">
+          <h5 class="card-title">Title1</h5>
+          <p class="card-text">Description text 1</p>
+          <h3 class="card-title">$99.99</h3>
+          <a href="#" class="btn btn-secondary">View details</a>
+          <a href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+            <img alt="placeholder" src="https://via.placeholder.com/150" height ="150" width="150" class="mb-3">
+          <h5 class="card-title">Title2</h5>
+          <p class="card-text">Description text 2</p>
+          <h3 class="card-title">$99.99</h3>
+          <a href="#" class="btn btn-secondary">View details</a>
+          <a href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+            <img alt="placeholder" src="https://via.placeholder.com/150" height ="150" width="150" class="mb-3">
+          <h5 class="card-title">Title3</h5>
+          <p class="card-text">Description text 3</p>
+          <h3 class="card-title">$99.99</h3>
+            <a href="#" class="btn btn-secondary">View details</a>
+          <a href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  </div>-->
+</main>
+    <!--Footer mostly pulled from bootstrap-->
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center"> <a href="/"
+                    class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1" aria-label="Bootstrap"> <svg
+                        class="bi" width="30" height="24" aria-hidden="true">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg> </a>  <img src="media/crownBlack.png" alt="Crown Icon" width="32" height="32" class="me-2">
+                     <span class="mb-3 mb-md-0 text-body-secondary">© 2026 Owen Kitchener</span> </div>
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+               <li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a></li>
+<li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a></li>
+<li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Twitter"><i class="bi bi-twitter fs-5"></i></a></li>
+<li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Tiktok"><i class="bi bi-tiktok fs-5"></i></a></li>
+            </ul>
+    </footer>
+<!-- Cart Drawer mostly pulled from bootstrap -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="cartDrawerLabel">Your Royal Chest</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+    <p>Your cart is empty.</p>
+<div class="cart-summary mt-auto border-top pt-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <p>Subtotal</p>
+    <h3>$0.00</h3>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <p>Est. Tax</p>
+    <h3>$0.00</h3>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <p>Est. Shipping</p>
+    <h3>$0.00</h3>
+    </div>
+    <a href="checkout.html" class="btn btn-primary w-100">Proceed to Checkout</a>
+</div>
+  </div>
+</div>
+
+<!--Product detail card 1-->
+<div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productDetailsModalLabel">Crown</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row g-4">
+          <div class="col-12 col-lg-6">
+            <div class="ratio ratio-1x1">
+            <img src="media/crownProduct.png" alt="Product image" class="img-fluid border">
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <h3 class="mb-1">Crown</h3>
+            <h4 class="mb-3">$299.99</h4>
+
+            <ul class="mb-4 ps-3">
+              <li>Shiny</li>
+              <li>Gold-plated</li>
+              <li>Adjustable size</li>
+              <li>Perfect for royal events</li>
+            </ul>
+             <label for="productSize" class="form-label fw-semibold">Size:</label>
+            <select id="productSize" class="form-select mb-3">
+              <option selected>S</option><option>M</option><option>L</option>
+            </select>
+
+            <label for="productColor" class="form-label fw-semibold">Color:</label>
+            <select id="productColor" class="form-select mb-3">
+              <option selected>Silver</option><option>Platinum</option><option>Gold</option>
+            </select>
+
+            <p class="fw-semibold mb-2">Quantity:</p>
+            <div class="d-flex align-items-center gap-2 mb-4">
+              <button type="button" class="btn btn-outline-secondary">-</button>
+              <span>1</span>
+              <button type="button" class="btn btn-outline-secondary">+</button>
+            </div>
+
+            <button type="button" class="btn btn-primary w-100 mb-2">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Product detail card 2-->
+<div class="modal fade" id="productDetailsModal2" tabindex="-1" aria-labelledby="productDetailsModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productDetailsModalLabel2">Royal Soap</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row g-4">
+          <div class="col-11 col-lg-6">
+          <!-- Maintain a square photo-->
+            <div class="ratio ratio-1x1">
+            <img src="media/soap-large.jpg" alt="Product image" class="img-fluid border">
+          </div>
+        </div>
+
+          <div class="col-12 col-lg-6">
+            <h3 class="mb-1">Royal Soap</h3>
+            <h4 class="mb-3">$499.99</h4>
+
+            <ul class="mb-4 ps-3">
+              <li>Luxurious</li>
+              <li>Handcrafted</li>
+              <li>Natural ingredients</li>
+              <li>Eco-friendly packaging</li>
+            </ul>
+            <label for="productSize2" class="form-label fw-semibold">Soap Size:</label>
+            <select id="productSize2" class="form-select mb-3">
+              <option selected>S</option><option>M</option><option>L</option>
+            </select>
+
+            <label for="productColor2" class="form-label fw-semibold">Scent:</label>
+            <select id="productColor2" class="form-select mb-3">
+              <option selected>Lavender</option><option>Rose</option><option>Vanilla</option>
+            </select>
+
+            <p class="fw-semibold mb-2">Quantity:</p>
+            <div class="d-flex align-items-center gap-2 mb-4">
+              <button type="button" class="btn btn-outline-secondary">-</button>
+              <span>1</span>
+              <button type="button" class="btn btn-outline-secondary">+</button>
+            </div>
+
+            <button type="button" class="btn btn-primary w-100 mb-2">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <!--<a href="https://www.flaticon.com/free-icons/crown" title="crown icons">Crown icons created by zky.icon - Flaticon</a>-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
