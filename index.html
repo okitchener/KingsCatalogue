@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="main.css">
     <link rel="icon" type="image/png" href="media/crown.png">
+    
 </head>
 
 <body>
@@ -85,96 +86,24 @@
 
     <!-- Cards on the right -->
     <section class="col-12 col-md-10 pt-3">
-  <div class="row row-cols-1 row-cols-md-3 g-3">
-    <div class="col">
+  <div id="app" class="row row-cols-1 row-cols-md-3 g-3">
+    <div class="col" v-for="product in products" :key="product.id">
       <div class="card h-100">
         <div class="card-body">
             <div class="ratio ratio-4x3 mb-3">
-            <img alt="placeholder" src="media/crownProduct.png" class="mb-3">
+          <img :src="product.image" class="card-img-top" :alt="product.name">
             </div>
-          <h5 class="card-title">Crown</h5>
-          <p class="card-text">Classic royal crown</p>
-          <h3 class="card-title">$299.99</h3>
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+          <h3 class="card-title">${{ product.price.toFixed(2) }}</h3>
           <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#productDetailsModal">View details</button>
-          <a href="#" class="btn btn-primary">Add to cart</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-            <!--full width rectangle picture holder-->
-            <div class="ratio ratio-4x3 mb-3">
-            <img alt="placeholder" src="media/soap-small.jpg"  class="mb-3">
-            </div>
-          <h5 class="card-title">Royal Soap</h5>
-          <p class="card-text">Luxurious handcrafted soap with natural ingredients</p>
-          <h3 class="card-title">$499.99</h3>
-          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#productDetailsModal2">View details</button>
-          <a href="#" class="btn btn-primary">Add to cart</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-            <div class="ratio ratio-4x3 mb-3">
-            <img alt="placeholder" src="media/fancySuit.webp" class="mb-3">
-            </div>
-          <h5 class="card-title">Fancy Suit</h5>
-          <p class="card-text">An elegant suit for special occasions</p>
-          <h3 class="card-title">$475.99</h3>
-            <a href="#" class="btn btn-secondary">View details</a>
-          <a href="#" class="btn btn-primary">Add to cart</a>
+            <button class="btn btn-primary">Add to cart</button>
         </div>
       </div>
     </div>
   </div>
-<!--Row 2-->
-  <!--<div class="row row-cols-1 row-cols-md-3 g-3">
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-            <img alt="placeholder" src="https://via.placeholder.com/150" height ="150" width="150" class="mb-3">
-          <h5 class="card-title">Title1</h5>
-          <p class="card-text">Description text 1</p>
-          <h3 class="card-title">$99.99</h3>
-          <a href="#" class="btn btn-secondary">View details</a>
-          <a href="#" class="btn btn-primary">Add to cart</a>
-        </div>
-      </div>
-    </div>
 
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-            <img alt="placeholder" src="https://via.placeholder.com/150" height ="150" width="150" class="mb-3">
-          <h5 class="card-title">Title2</h5>
-          <p class="card-text">Description text 2</p>
-          <h3 class="card-title">$99.99</h3>
-          <a href="#" class="btn btn-secondary">View details</a>
-          <a href="#" class="btn btn-primary">Add to cart</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-            <img alt="placeholder" src="https://via.placeholder.com/150" height ="150" width="150" class="mb-3">
-          <h5 class="card-title">Title3</h5>
-          <p class="card-text">Description text 3</p>
-          <h3 class="card-title">$99.99</h3>
-            <a href="#" class="btn btn-secondary">View details</a>
-          <a href="#" class="btn btn-primary">Add to cart</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-  </div>-->
+  
 </main>
     <!--Footer mostly pulled from bootstrap-->
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -326,6 +255,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+        </script>
+<!-- Vue Application -->
+<script type="module">
+    // create the app
+    import app from './app.js';
+
+    // tell it to run on the div #app
+    app.mount('#app');
+</script>
 </body>
 
 </html>
