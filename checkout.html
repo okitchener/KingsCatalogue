@@ -50,116 +50,112 @@
     <div class="d-block d-md-none px-3 py-2 border-bottom">
         <input type="search" class="form-control" placeholder="Search royal wares..." aria-label="Search">
     </div>
+  <div id="checkoutApp">
    <main class="container-fluid">
   <div class="row">
     <!-- Left side filter column -->
     <aside class="col-12 col-md-2 pt-3 border-end">
-      <!--<h4>Filters</h4>
-      <h5>Category</h5>
-      <div class="form-check flex-column">
-        <div class="p-2">
-          <input class="form-check-input" type="checkbox" value="" id="category1">
-          <label class="form-check-label" for="category1">Category 1</label>
-        </div>
-        <div class="p-2">
-          <input class="form-check-input" type="checkbox" value="" id="category2">
-          <label class="form-check-label" for="category2">Category 2</label>
-        </div>
-        <div class="p-2">
-          <input class="form-check-input" type="checkbox" value="" id="category3">
-          <label class="form-check-label" for="category3">Category 3</label>
-        </div>
-      </div>
-      <!-Price range slider ->
-      <label for="range1" class="form-label">Price range</label>
-<input type="range" class="form-range" id="range1">
-<!-Sort by Dropdown->
-      <label for="sortBy" class="form-label">Sort by</label>
-      <select class="form-select" id="sortBy">
-        <option value="featured">Featured</option>
-        <option value="priceLowHigh">Price: Low to High</option>
-        <option value="priceHighLow">Price: High to Low</option>
-        <option value="newest">Newest Arrivals</option>
-      </select>-->
     </aside>
     <section class="col-12 col-md-10 pt-3">
           <nav aria-label="Checkout progress" class="mb-3">
   <ol class="list-unstyled d-flex align-items-center gap-2 mb-0">
-    <li class="fw-semibold" aria-current="step">Details</li>
-    <li class="text-body-secondary">›</li>
-    <li class="text-body-secondary">Review and Pay</li>
+    <li :class="detailsVerified ? 'text-body-secondary' : 'fw-semibold'" :aria-current="detailsVerified ? null : 'step'">Details</li>
+    <li class="text-body-secondary">></li>
+    <li :class="detailsVerified ? 'fw-semibold' : 'text-body-secondary'" :aria-current="detailsVerified ? 'step' : null">Review and Pay</li>
   </ol>
 </nav>
  <div class="row g-4">
     <div class="col-12 col-lg-8">
+<div v-if="!detailsVerified">
 <h5>Customer Information</h5>
 <label for="textInput" class="form-label">Name</label>
-<input type="text" class="form-control mb-3" id="textInput" placeholder="Name" aria-label="Name">
+<input type="text" class="form-control mb-3" id="textInput" placeholder="Name" aria-label="Name" v-model="details.name">
 
 <label for="emailInput" class="form-label">Email</label>
-<input type="email" class="form-control mb-3" id="emailInput" placeholder="Email" aria-label="Email">
+<input type="email" class="form-control mb-3" id="emailInput" placeholder="Email" aria-label="Email" v-model="details.email">
 
 <label for="phoneInput" class="form-label">Phone</label>
-<input type="tel" class="form-control mb-3" id="phoneInput" placeholder="Phone" aria-label="Phone">
+<input type="tel" class="form-control mb-3" id="phoneInput" placeholder="Phone" aria-label="Phone" v-model="details.phone">
 
 <h5>Shipping Address</h5>
 <label for="addressInput" class="form-label">Address</label>
-<input type="text" class="form-control mb-3" id="addressInput" placeholder="Address" aria-label="Address">
+<input type="text" class="form-control mb-3" id="addressInput" placeholder="Address" aria-label="Address" v-model="details.address">
 
 <label for="cityInput" class="form-label">City</label>
-<input type="text" class="form-control mb-3" id="cityInput" placeholder="City" aria-label="City">
+<input type="text" class="form-control mb-3" id="cityInput" placeholder="City" aria-label="City" v-model="details.city">
 
 <div class="d-flex gap-3">
-    <div class="flex-fill">
+  <div class="flex-fill">
 <label for="stateInput" class="form-label">State/Province</label>
-<input type="text" class="form-control mb-3" id="stateInput" placeholder="State/Province" aria-label="State/Province">
-    </div>
-    <div class="flex-fill">
+<input type="text" class="form-control mb-3" id="stateInput" placeholder="State/Province" aria-label="State/Province" v-model="details.state">
+  </div>
+  <div class="flex-fill">
 <label for="zipInput" class="form-label">ZIP/Postal Code</label>
-<input type="text" class="form-control mb-3" id="zipInput" placeholder="ZIP/Postal Code" aria-label="ZIP/Postal Code">
-    </div>
+<input type="text" class="form-control mb-3" id="zipInput" placeholder="ZIP/Postal Code" aria-label="ZIP/Postal Code" v-model="details.zip">
+  </div>
 </div>
 
 <h5>Delivery Options</h5>
-<input class="form-check-input" type="radio" name="deliveryOptions" id="standardDelivery" checked>
+<input class="form-check-input" type="radio" name="deliveryOptions" id="standardDelivery" value="Standard Delivery" v-model="details.deliveryOption">
 <label class="form-check-label mb-2" for="standardDelivery">Standard Delivery</label><br>
-<input class="form-check-input" type="radio" name="deliveryOptions" id="expressDelivery">
+<input class="form-check-input" type="radio" name="deliveryOptions" id="expressDelivery" value="Express Delivery" v-model="details.deliveryOption">
 <label class="form-check-label mb-2" for="expressDelivery">Express Delivery</label><br>
 <h5>Payment</h5>
 <label for="cardNumberInput" class="form-label">Card Number</label>
-<input type="text" class="form-control mb-3" id="cardNumberInput" placeholder="Card Number" aria-label="Card Number">
+<input type="text" class="form-control mb-3" id="cardNumberInput" placeholder="Card Number" aria-label="Card Number" v-model="details.cardNumber">
 
 <div class="d-flex gap-3">
-    <div class="flex-fill">
+  <div class="flex-fill">
 <label for="expiryInput" class="form-label">Expiry Date</label>
-<input type="text" class="form-control mb-3" id="expiryInput" placeholder="MM/YY" aria-label="Expiry Date">
-    </div>
-    <div class="flex-fill">
+<input type="text" class="form-control mb-3" id="expiryInput" placeholder="MM/YY" aria-label="Expiry Date" v-model="details.expiry">
+  </div>
+  <div class="flex-fill">
 <label for="cvvInput" class="form-label">CVV</label>
-<input type="text" class="form-control mb-3" id="cvvInput" placeholder="CVV" aria-label="CVV">
+<input type="text" class="form-control mb-3" id="cvvInput" placeholder="CVV" aria-label="CVV" v-model="details.cvv">
 </div>
 </div>
-<button class="btn btn-primary">Place Order</button>
+<button class="btn btn-primary" @click="verifyDetails">Review and Pay</button>
 <a href="index.html" class="btn btn-link">Return to main menu</a>
+</div>
+
+<!--I chose to save the verified details so Users can view their order history on their profile page (future implementation)-->
+<div v-else class="border rounded-3 p-3 bg-white">
+  <h5 class="mb-3">Verify Details</h5>
+  <p class="mb-1"><strong>Name:</strong> {{ details.name }}</p>
+  <p class="mb-1"><strong>Email:</strong> {{ details.email }}</p>
+  <p class="mb-1"><strong>Phone:</strong> {{ details.phone }}</p>
+  <p class="mb-1"><strong>Address:</strong> {{ details.address }}</p>
+  <p class="mb-1"><strong>City:</strong> {{ details.city }}</p>
+  <p class="mb-1"><strong>State/Province:</strong> {{ details.state }}</p>
+  <p class="mb-1"><strong>ZIP/Postal Code:</strong> {{ details.zip }}</p>
+  <p class="mb-1"><strong>Delivery Option:</strong> {{ details.deliveryOption }}</p>
+  <p class="mb-1"><strong>Card Number:</strong> {{ details.cardNumber }}</p>
+  <p class="mb-1"><strong>Expiry Date:</strong> {{ details.expiry }}</p>
+  <p class="mb-0"><strong>CVV:</strong> {{ details.cvv }}</p>
+</div>
     </div>
  <div class="col-12 col-lg-4">
       <div class="border rounded-3 p-3 bg-white">
         <h5 class="mb-3">Order Summary</h5>
 
-        <div class="d-flex gap-2 pb-3 border-bottom">
-          <img src="media/crownProduct.png" alt="Gold Crown" width="48" height="48">
-          <div>
-            <p class="mb-0 fw-semibold">Gold crown</p>
-            <small class="text-body-secondary">Qty: 1 x $99.99</small>
+        <div class="d-flex flex-column gap-3 pb-3 border-bottom">
+          <p v-if="cart.length === 0" class="text-body-secondary mb-0">Your cart is empty.</p>
+          <div v-else class="d-flex gap-2" v-for="item in cart" :key="`${item.id}-${item.size}-${item.color}`">
+            <img :src="item.image" :alt="item.name" width="48" height="48" class="border rounded object-fit-cover">
+            <div>
+              <p class="mb-0 fw-semibold">{{ item.name }}</p>
+              <small class="text-body-secondary">Qty: {{ item.qty }} x {{ money(item.price) }}</small><br>
+              <small class="text-body-secondary">Size: {{ item.size }}, Color: {{ item.color }}</small>
+            </div>
           </div>
         </div>
 
         <div class="pt-3">
-          <div class="d-flex justify-content-between mb-2"><span>Subtotal:</span><span>$99.99</span></div>
-          <div class="d-flex justify-content-between mb-2"><span>Shipping:</span><span>$10.00</span></div>
-          <div class="d-flex justify-content-between mb-3"><span>Estimated Tax:</span><span>$12.00</span></div>
+          <div class="d-flex justify-content-between mb-2"><span>Subtotal:</span><span>{{ money(subtotal) }}</span></div>
+          <div class="d-flex justify-content-between mb-2"><span>Shipping:</span><span>{{ money(shipping) }}</span></div>
+          <div class="d-flex justify-content-between mb-3"><span>Estimated Tax:</span><span>{{ money(tax) }}</span></div>
           <div class="d-flex justify-content-between fw-semibold border-top pt-2">
-            <span>Order Total:</span><span>$121.99</span>
+            <span>Order Total:</span><span>{{ money(total) }}</span>
           </div>
         </div>
       </div>
@@ -192,28 +188,47 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body d-flex flex-column">
-    <p>Your cart is empty.</p>
+            <div class="d-flex flex-column gap-3">
+              <p v-if="cart.length === 0" class="text-body-secondary">Your cart is empty.</p>
+              <div v-else class="border rounded p-2" v-for="item in cart" :key="`drawer-${item.id}-${item.size}-${item.color}`">
+                <div class="d-flex align-items-start gap-3 w-100">
+                  <img :src="item.image" :alt="item.name" width="72" height="72" class="border rounded object-fit-cover">
+                  <div class="flex-grow-1">
+                    <p class="mb-1 fw-semibold">{{ item.name }}</p>
+                    <p class="mb-1 text-body-secondary">Size: {{ item.size }}, Color: {{ item.color }}</p>
+                    <p class="mb-0 fw-bold">{{ money(item.price) }}</p>
+                  </div>
+                  <div class="fw-semibold ms-2">x{{ item.qty }}</div>
+                </div>
+              </div>
+            </div>
 <div class="cart-summary mt-auto border-top pt-3">
     <div class="d-flex justify-content-between align-items-center mb-3">
     <p>Subtotal</p>
-    <h3>$0.00</h3>
+            <h3>{{ money(subtotal) }}</h3>
     </div>
     <div class="d-flex justify-content-between align-items-center mb-3">
     <p>Est. Tax</p>
-    <h3>$0.00</h3>
+            <h3>{{ money(tax) }}</h3>
     </div>
     <div class="d-flex justify-content-between align-items-center mb-3">
     <p>Est. Shipping</p>
-    <h3>$0.00</h3>
+            <h3>{{ money(shipping) }}</h3>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <p class="fw-bold">Grand Total</p>
+            <h2 class="fw-bold">{{ money(total) }}</h2>
     </div>
     <a href="#" class="btn btn-primary w-100">Proceed to Checkout</a>
 </div>
   </div>
 </div>
+        </div>
     <!--<a href="https://www.flaticon.com/free-icons/crown" title="crown icons">Crown icons created by zky.icon - Flaticon</a>-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+        <script type="module" src="./checkout.js"></script>
 </body>
 
 </html>

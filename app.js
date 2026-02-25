@@ -4,9 +4,9 @@ createApp({
   data() {
     return {
       products: [
-        { id: 1, name: "Crown", price: 299.99, image: "media/crownProduct.png", description: "Luxury crown.", size: ["S","M","L","XL"], color: ["Gold", "Silver"] },
-        { id: 2, name: "Royal Soap", price: 49.99, image: "media/soap-large.jpg", description: "Handcrafted soap.", size: ["S","M","L","XL"], color: ["Lavender", "Rose"] },
-        { id: 3, name: "Fancy Suit", price: 475.99, image: "media/fancySuit.webp", description: "Elegant suit.", size: ["S","M","L","XL"], color: ["Black", "White"] }
+        { id: 1, name: "Crown", price: 299.99, image: "media/crownProduct.png", description: "Luxury crown.", sizes: ["S", "M", "L", "XL"], colors: ["Gold", "Silver"], bullets: ["Handcrafted", "24k Gold Plated", "Adjustable Size"], category: "Accessories" },
+        { id: 2, name: "Royal Soap", price: 49.99, image: "media/soap-large.jpg", description: "Handcrafted soap.", sizes: ["S", "M", "L", "XL"], colors: ["Lavender", "Rose"], bullets: ["Organic Ingredients", "Gentle on Skin", "Eco-Friendly Packaging"], category: "Bath" },
+        { id: 3, name: "Fancy Suit", price: 475.99, image: "media/fancySuit.webp", description: "Elegant suit.", sizes: ["S", "M", "L", "XL"], colors: ["Black", "White"], bullets: ["Tailored Fit", "Premium Fabric", "Dry Clean Only"], category: "Clothing" }
       ],
       selectedProduct: null,
       cart: []
@@ -37,12 +37,18 @@ createApp({
     },
     subtotal() {
       return this.cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+    },
+    tax() {
+      return this.subtotal * 0.1; //  tax rate of 10%
+    },
+    shipping() {
+      return this.cart.length > 0 ? 15 : 0; //  flat shipping rate
     }
   },
   methods: {
     openDetails(product) {
-      const sizes = product.sizes ?? (Array.isArray(product.size) ? product.size : [product.size ?? "M"]);
-      const colors = product.colors ?? (Array.isArray(product.color) ? product.color : [product.color ?? "Default"]);
+      const sizes = product.sizes ?? ["M"];
+      const colors = product.colors ?? ["Default"];
 
       this.selectedProduct = {
         ...product,
@@ -56,8 +62,8 @@ createApp({
     },
     addToCart(product) {
       if (!product) return;
-      const size = Array.isArray(product.size) ? product.size[0] : (product.size ?? "M");
-      const color = Array.isArray(product.color) ? product.color[0] : (product.color ?? "Default");
+      const size = product.size ?? product.sizes?.[0] ?? "M";
+      const color = product.color ?? product.colors?.[0] ?? "Default";
 
       const found = this.cart.find(i => i.id === product.id && i.size === size && i.color === color);
       if (found) found.qty += product.qty || 1;
