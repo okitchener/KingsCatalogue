@@ -73,14 +73,18 @@
       </div>
       <!-- Price range slider -->
       <label for="range1" class="form-label">Price range</label>
-<input type="range" class="form-range" id="range1">
+    <input type="range" class="form-range" id="range1" min="0" max="1000" step="10" v-model.number="maxPrice">
+    <div class="d-flex justify-content-between mb-1">
+      <small class="text-body-secondary">$0</small>
+      <small class="text-body-secondary">$1000</small>
+    </div>
+    <small class="text-body-secondary d-block mb-3">Max: ${{ maxPrice }}</small>
 <!--Sort by Dropdown-->
       <label for="sortBy" class="form-label">Sort by</label>
       <select class="form-select" id="sortBy">
         <option value="featured">Featured</option>
         <option value="priceLowHigh">Price: Low to High</option>
         <option value="priceHighLow">Price: High to Low</option>
-        <option value="newest">Newest Arrivals</option>
       </select>
     </aside>
 

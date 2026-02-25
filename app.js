@@ -9,6 +9,7 @@ createApp({
         { id: 3, name: "Fancy Suit", price: 475.99, image: "media/fancySuit.webp", description: "Elegant suit.", sizes: ["S", "M", "L", "XL"], colors: ["Black", "White"], bullets: ["Tailored Fit", "Premium Fabric", "Dry Clean Only"], category: "Clothing" }
       ],
       selectedCategories: [],
+      maxPrice: 1000,
       selectedProduct: null,
       cart: []
     };
@@ -34,8 +35,11 @@ createApp({
 },
   computed: {
     filteredProducts() {
-      if (this.selectedCategories.length === 0) return this.products;
-      return this.products.filter(product => this.selectedCategories.includes(product.category));
+      return this.products.filter(product => {
+        const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.includes(product.category);
+        const matchesPrice = product.price <= this.maxPrice;
+        return matchesCategory && matchesPrice;
+      });
     },
     cartCount() {
       return this.cart.reduce((totalQty, item) => totalQty + item.qty, 0);
