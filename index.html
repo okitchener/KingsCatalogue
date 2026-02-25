@@ -73,10 +73,10 @@
       </div>
       <!-- Price range slider -->
       <label for="range1" class="form-label">Price range</label>
-    <input type="range" class="form-range" id="range1" min="0" max="1000" step="10" v-model.number="maxPrice">
+    <input type="range" class="form-range" id="range1" min="0" max="200" step="10" v-model.number="maxPrice">
     <div class="d-flex justify-content-between mb-1">
       <small class="text-body-secondary">$0</small>
-      <small class="text-body-secondary">$1000</small>
+      <small class="text-body-secondary">$200</small>
     </div>
     <small class="text-body-secondary d-block mb-3">Max: ${{ maxPrice }}</small>
 <!--Sort by Dropdown-->
@@ -101,6 +101,7 @@
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">{{ product.description }}</p>
           <h3 class="card-title">${{ product.price.toFixed(2) }}</h3>
+          <div class="d-grid gap-2 d-sm-flex mt-3">
 <button
   type="button"
   class="btn btn-secondary"
@@ -109,6 +110,7 @@
   @click="openDetails(product)"
 >View details</button>          
   <button class="btn btn-primary" v-on:click="addToCart(product)">Add to cart</button>
+          </div>
         </div>
       </div>
     </div>
@@ -234,10 +236,10 @@
                     </svg> </a>  <img src="media/crownBlack.png" alt="Crown Icon" width="32" height="32" class="me-2">
                      <span class="mb-3 mb-md-0 text-body-secondary">© 2026 Owen Kitchener</span> </div>
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-               <li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a></li>
-<li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a></li>
-<li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Twitter"><i class="bi bi-twitter fs-5"></i></a></li>
-<li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Tiktok"><i class="bi bi-tiktok fs-5"></i></a></li>
+               <li class="ms-3"><a class="text-body-secondary" href="https://www.instagram.com" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a></li>
+<li class="ms-3"><a class="text-body-secondary" href="https://www.facebook.com" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a></li>
+<li class="ms-3"><a class="text-body-secondary" href="https://www.twitter.com" aria-label="Twitter"><i class="bi bi-twitter fs-5"></i></a></li>
+<li class="ms-3"><a class="text-body-secondary" href="https://www.tiktok.com" aria-label="Tiktok"><i class="bi bi-tiktok fs-5"></i></a></li>
             </ul>
     </footer>
 </div>

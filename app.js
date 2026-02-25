@@ -32,7 +32,7 @@ createApp({
         { id: 25, name: "Training Duffle Bag", price: 72.99, image: "media/Training-Duffle-Bag.avif", description: "Spacious gym bag with separate shoe compartment.", sizes: ["One Size"], colors: ["Black", "Gray"], bullets: ["Ventilated shoe pocket", "Adjustable shoulder strap", "Water-resistant base"], category: "Accessories", featured: false }
       ],
       selectedCategories: [],
-      maxPrice: 1000,
+      maxPrice: 200,
       sortBy: "",
       selectedProduct: null,
       cart: []
