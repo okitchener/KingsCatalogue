@@ -87,7 +87,7 @@
     <!-- Cards on the right -->
     <section class="col-12 col-md-10 pt-3">
   <div id="app" class="row row-cols-1 row-cols-md-3 g-3">
-    <div class="col" v-for="product in store.products" :key="product.id">
+    <div class="col" v-for="product in products" :key="product.id">
       <div class="card h-100">
         <div class="card-body">
             <div class="ratio ratio-4x3 mb-3">
@@ -103,10 +103,115 @@
   data-bs-target="#productDetailsModal"
   @click="openDetails(product)"
 >View details</button>          
-  <button class="btn btn-primary">Add to cart</button>
+  <button class="btn btn-primary" v-on:click="addToCart(product)">Add to cart</button>
         </div>
       </div>
     </div>
+
+    <!-- Cart Drawer mostly pulled from bootstrap -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="cartDrawerLabel">Your Royal Chest</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+  <div v-if="cart.length === 0" class="text-body-secondary">Your cart is empty.</div>
+
+  <div v-else class="d-flex flex-column gap-3">
+    <div class="border rounded p-2" v-for="item in cart" :key="item.id">
+      <div class="d-flex align-items-start gap-3 w-100">
+        <!-- Left: product image -->
+        <img :src="item.image" :alt="item.name" width="72" height="72" class="border rounded object-fit-cover">
+
+        <!-- Middle: name, size/color, price -->
+        <div class="flex-grow-1">
+          <p class="mb-1 fw-semibold">{{ item.name }}</p>
+          <p class="mb-1 text-body-secondary">Size: {{ item.size }}, Color: {{ item.color }}</p>
+          <p class="mb-0 fw-bold">${{ item.price.toFixed(2) }}</p>
+        </div>
+
+        <!-- Right: quantity -->
+        <div class="d-flex align-items-center gap-2 ms-2">
+          <button class="btn btn-outline-secondary btn-sm" v-on:click="decreaseQty(item)">-</button>
+          <span class="fw-semibold">{{ item.qty }}</span>
+          <button class="btn btn-outline-secondary btn-sm" v-on:click="increaseQty(item)">+</button>
+        </div>
+
+        <!-- Far right: remove -->
+        <button class="btn btn-link text-danger text-decoration-none ms-3 p-0" v-on:click="removeFromCart(item.id)">
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cart-summary mt-auto border-top pt-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <p>Subtotal</p>
+    <h3>$0.00</h3>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <p>Est. Tax</p>
+    <h3>$0.00</h3>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <p>Est. Shipping</p>
+    <h3>$0.00</h3>
+    </div>
+    <a href="checkout.html" class="btn btn-primary w-100">Proceed to Checkout</a>
+</div>
+  </div>
+
+    <!--Product detail card 1-->
+
+<div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" v-if="selectedProduct">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productDetailsModalLabel">{{ selectedProduct.name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row g-4">
+          <div class="col-12 col-lg-6">
+            <div class="ratio ratio-1x1">
+            <img :src="selectedProduct.image" :alt="selectedProduct.name" class="img-fluid border">
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <h3 class="mb-1">{{ selectedProduct.name }}</h3>
+            <h4 class="mb-3">${{ selectedProduct.price }}</h4>
+
+            <ul class="mb-4 ps-3">
+              <li v-for="bullet in selectedProduct.bullets" :key="bullet">{{ bullet }}</li>
+            </ul>
+             <label for="productSize" class="form-label fw-semibold">Size:</label>
+            <select id="productSize" class="form-select mb-3" v-model="selectedProduct.size">
+              <option v-for="size in selectedProduct.sizes" :key="size" :value="size">{{ size }}</option>
+            </select>
+
+            <label for="productColor" class="form-label fw-semibold">Color:</label>
+            <select id="productColor" class="form-select mb-3" v-model="selectedProduct.color">
+              <option v-for="color in selectedProduct.colors" :key="color" :value="color">{{ color }}</option>
+            </select>
+
+            <p class="fw-semibold mb-2">Quantity: {{ selectedProduct.qty }}</p>
+            <div class="d-flex align-items-center gap-2 mb-4">
+              <button type="button" class="btn btn-outline-secondary" v-on:click="selectedProduct.qty > 1 ? selectedProduct.qty-- : 1">-</button>
+              <span>{{ selectedProduct.qty }}</span>
+              <button type="button" class="btn btn-outline-secondary" v-on:click="selectedProduct.qty++">+</button>
+            </div>
+
+            <button type="button" class="btn btn-primary" v-on:click="addToCart(selectedProduct)">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
   </div>
 
 
@@ -126,87 +231,13 @@
 <li class="ms-3"><a class="text-body-secondary" href="#" aria-label="Tiktok"><i class="bi bi-tiktok fs-5"></i></a></li>
             </ul>
     </footer>
-<!-- Cart Drawer mostly pulled from bootstrap -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="cartDrawerLabel">Your Royal Chest</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body d-flex flex-column">
-    <p>Your cart is empty.</p>
-<div class="cart-summary mt-auto border-top pt-3">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-    <p>Subtotal</p>
-    <h3>$0.00</h3>
-    </div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-    <p>Est. Tax</p>
-    <h3>$0.00</h3>
-    </div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-    <p>Est. Shipping</p>
-    <h3>$0.00</h3>
-    </div>
-    <a href="checkout.html" class="btn btn-primary w-100">Proceed to Checkout</a>
-</div>
-  </div>
 </div>
 
-<!--Product detail card 1-->
-<div id="view-details">
-<div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="productDetailsModalLabel">{{ store.selectedProduct.name }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <div class="row g-4">
-          <div class="col-12 col-lg-6">
-            <div class="ratio ratio-1x1">
-            <img :src="store.selectedProduct.image" :alt="store.selectedProduct.name" class="img-fluid border">
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-6">
-            <h3 class="mb-1">{{ store.selectedProduct.name }}</h3>
-            <h4 class="mb-3">${{ store.selectedProduct.price }}</h4>
-
-            <ul class="mb-4 ps-3">
-              <li v-for="bullet in store.selectedProduct.bullets" :key="bullet">{{ bullet }}</li>
-            </ul>
-             <label for="productSize" class="form-label fw-semibold">Size:</label>
-            <select id="productSize" class="form-select mb-3">
-              <option v-for="size in store.selectedProduct.sizes" :key="size">{{ size }}</option>
-            </select>
-
-            <label for="productColor" class="form-label fw-semibold">Color:</label>
-            <select id="productColor" class="form-select mb-3">
-              <option v-for="color in store.selectedProduct.colors" :key="color">{{ color }}</option>
-            </select>
-
-            <p class="fw-semibold mb-2">Quantity:</p>
-            <div class="d-flex align-items-center gap-2 mb-4">
-              <button type="button" class="btn btn-outline-secondary">-</button>
-              <span>1</span>
-              <button type="button" class="btn btn-outline-secondary">+</button>
-            </div>
-
-            <button type="button" class="btn btn-primary w-100 mb-2">Add to cart</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
     <!--<a href="https://www.flaticon.com/free-icons/crown" title="crown icons">Crown icons created by zky.icon - Flaticon</a>-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-    <script type="module" src="app.js"></script>
+   <script type="module" src="./app.js"></script>
 </body>
 
 </html>
