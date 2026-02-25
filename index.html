@@ -81,7 +81,8 @@
     <small class="text-body-secondary d-block mb-3">Max: ${{ maxPrice }}</small>
 <!--Sort by Dropdown-->
       <label for="sortBy" class="form-label">Sort by</label>
-      <select class="form-select" id="sortBy">
+  <select class="form-select" id="sortBy" v-model="sortBy">
+        <option value="" :disabled="sortBy !== ''">------</option>
         <option value="featured">Featured</option>
         <option value="priceLowHigh">Price: Low to High</option>
         <option value="priceHighLow">Price: High to Low</option>
@@ -94,8 +95,8 @@
     <div class="col" v-for="product in filteredProducts" :key="product.id">
       <div class="card h-100">
         <div class="card-body">
-            <div class="ratio ratio-4x3 mb-3">
-          <img :src="product.image" class="card-img-top" :alt="product.name">
+            <div class="ratio ratio-1x1 mb-3 product-card-media">
+          <img :src="product.image" class="w-100 h-100 object-fit-cover" :alt="product.name">
             </div>
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">{{ product.description }}</p>
@@ -184,7 +185,7 @@
         <div class="row g-4">
           <div class="col-12 col-lg-6">
             <div class="ratio ratio-1x1">
-            <img :src="selectedProduct.image" :alt="selectedProduct.name" class="img-fluid border">
+            <img :src="selectedProduct.image" :alt="selectedProduct.name" class="w-100 h-100 object-fit-cover border">
             </div>
           </div>
 

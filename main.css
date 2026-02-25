@@ -32,6 +32,11 @@ h3.card-title {
   color: #4a148c;
 }
 
+.product-card-media img {
+  object-fit: cover;
+  object-position: center;
+}
+
 input[type=range] {
   -webkit-appearance: none; /* Remove default styling */
   appearance: none;
