@@ -51,23 +51,23 @@
     <div class="d-block d-md-none px-3 py-2 border-bottom">
         <input type="search" class="form-control" placeholder="Search royal wares..." aria-label="Search">
     </div>
-   <main class="container-fluid">
-  <div class="row">
+  <main class="container-fluid">
+  <div id="app" class="row">
     <!-- Left side filter column -->
     <aside class="col-12 col-md-2 pt-3 border-end">
       <h4>Filters:</h4>
       <h5>Category</h5>
       <div class="form-check flex-column">
         <div class="p-2">
-          <input class="form-check-input" type="checkbox" value="" id="category1">
+          <input class="form-check-input" type="checkbox" value="Clothing" id="category1" v-model="selectedCategories">
           <label class="form-check-label" for="category1">Clothing</label>
         </div>
         <div class="p-2">
-          <input class="form-check-input" type="checkbox" value="" id="category2">
+          <input class="form-check-input" type="checkbox" value="Hygiene" id="category2" v-model="selectedCategories">
           <label class="form-check-label" for="category2">Hygiene</label>
         </div>
         <div class="p-2">
-          <input class="form-check-input" type="checkbox" value="" id="category3">
+          <input class="form-check-input" type="checkbox" value="Accessories" id="category3" v-model="selectedCategories">
           <label class="form-check-label" for="category3">Accessories</label>
         </div>
       </div>
@@ -86,8 +86,8 @@
 
     <!-- Cards on the right -->
     <section class="col-12 col-md-10 pt-3">
-  <div id="app" class="row row-cols-1 row-cols-md-3 g-3">
-    <div class="col" v-for="product in products" :key="product.id">
+  <div class="row row-cols-1 row-cols-md-3 g-3">
+    <div class="col" v-for="product in filteredProducts" :key="product.id">
       <div class="card h-100">
         <div class="card-body">
             <div class="ratio ratio-4x3 mb-3">
