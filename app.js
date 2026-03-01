@@ -1,6 +1,12 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+import CartList from "./components/CartList.js";
+import CartSummary from "./components/CartSummary.js";
 
 createApp({
+  components: {
+    CartList,
+    CartSummary
+  },
   data() {
     return {
       products: [
