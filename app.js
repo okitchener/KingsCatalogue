@@ -35,6 +35,7 @@ createApp({
       maxPrice: 200,
       sortBy: "",
       selectedProduct: null,
+      selectedCartProduct: null,
       cart: []
     };
   },
@@ -93,6 +94,19 @@ createApp({
     }
   },
   methods: {
+    openCartOptions(product) {
+      const sizes = product.sizes ?? ["M"];
+      const colors = product.colors ?? ["Default"];
+
+      this.selectedCartProduct = {
+        ...product,
+        sizes,
+        colors,
+        size: sizes[0],
+        color: colors[0],
+        qty: 1
+      };
+    },
     openDetails(product) {
       const sizes = product.sizes ?? ["M"];
       const colors = product.colors ?? ["Default"];
@@ -111,10 +125,11 @@ createApp({
       if (!product) return;
       const size = product.size ?? product.sizes?.[0] ?? "M";
       const color = product.color ?? product.colors?.[0] ?? "Default";
+      const qty = Math.max(1, Number.parseInt(product.qty, 10) || 1);
 
       const found = this.cart.find(cartItem => cartItem.id === product.id && cartItem.size === size && cartItem.color === color);
-      if (found) found.qty += product.qty || 1;
-      else this.cart.push({ ...product, size, color, qty: product.qty || 1 });
+      if (found) found.qty += qty;
+      else this.cart.push({ ...product, size, color, qty });
     },
     increaseQty(item) {
       item.qty += 1;
@@ -122,8 +137,8 @@ createApp({
     decreaseQty(item) {
       if (item.qty > 1) item.qty -= 1;
     },
-    removeFromCart(id) {
-      this.cart = this.cart.filter(cartItem => cartItem.id !== id);
+    removeFromCart(itemToRemove) {
+      this.cart = this.cart.filter(cartItem => !(cartItem.id === itemToRemove.id && cartItem.size === itemToRemove.size && cartItem.color === itemToRemove.color));
     }
   }
 }).mount("#app");
