@@ -138,27 +138,17 @@
  <div class="col-12 col-lg-4">
       <div class="border rounded-3 p-3 bg-white">
         <h5 class="mb-3">Order Summary</h5>
-
-        <div class="d-flex flex-column gap-3 pb-3 border-bottom">
-          <p v-if="cart.length === 0" class="text-body-secondary mb-0">Your cart is empty.</p>
-          <div v-else class="d-flex gap-2" v-for="item in cart" :key="`${item.id}-${item.size}-${item.color}`">
-            <img :src="item.image" :alt="item.name" width="48" height="48" class="border rounded object-fit-cover">
-            <div>
-              <p class="mb-0 fw-semibold">{{ item.name }}</p>
-              <small class="text-body-secondary">Qty: {{ item.qty }} x {{ money(item.price) }}</small><br>
-              <small class="text-body-secondary">Size: {{ item.size }}, Color: {{ item.color }}</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-3">
-          <div class="d-flex justify-content-between mb-2"><span>Subtotal:</span><span>{{ money(subtotal) }}</span></div>
-          <div class="d-flex justify-content-between mb-2"><span>Shipping:</span><span>{{ money(shipping) }}</span></div>
-          <div class="d-flex justify-content-between mb-3"><span>Estimated Tax:</span><span>{{ money(tax) }}</span></div>
-          <div class="d-flex justify-content-between fw-semibold border-top pt-2">
-            <span>Order Total:</span><span>{{ money(total) }}</span>
-          </div>
-        </div>
+        <cart-list
+          :cart="cart"
+          @increase="increaseQty"
+          @decrease="decreaseQty"
+          @remove="removeFromCart"
+        ></cart-list>
+        <cart-summary
+          :subtotal="subtotal"
+          :tax="tax"
+          :shipping="shipping"
+        ></cart-summary>
       </div>
     </div>
   </div>
@@ -189,39 +179,17 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body d-flex flex-column">
-            <div class="d-flex flex-column gap-3">
-              <p v-if="cart.length === 0" class="text-body-secondary">Your cart is empty.</p>
-              <div v-else class="border rounded p-2" v-for="item in cart" :key="`drawer-${item.id}-${item.size}-${item.color}`">
-                <div class="d-flex align-items-start gap-3 w-100">
-                  <img :src="item.image" :alt="item.name" width="72" height="72" class="border rounded object-fit-cover">
-                  <div class="flex-grow-1">
-                    <p class="mb-1 fw-semibold">{{ item.name }}</p>
-                    <p class="mb-1 text-body-secondary">Size: {{ item.size }}, Color: {{ item.color }}</p>
-                    <p class="mb-0 fw-bold">{{ money(item.price) }}</p>
-                  </div>
-                  <div class="fw-semibold ms-2">x{{ item.qty }}</div>
-                </div>
-              </div>
-            </div>
-<div class="cart-summary mt-auto border-top pt-3">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-    <p>Subtotal</p>
-            <h3>{{ money(subtotal) }}</h3>
-    </div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-    <p>Est. Tax</p>
-            <h3>{{ money(tax) }}</h3>
-    </div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-    <p>Est. Shipping</p>
-            <h3>{{ money(shipping) }}</h3>
-        </div>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-        <p class="fw-bold">Grand Total</p>
-            <h2 class="fw-bold">{{ money(total) }}</h2>
-    </div>
-    <a href="#" class="btn btn-primary w-100">Proceed to Checkout</a>
-</div>
+    <cart-list
+      :cart="cart"
+      @increase="increaseQty"
+      @decrease="decreaseQty"
+      @remove="removeFromCart"
+    ></cart-list>
+    <cart-summary
+      :subtotal="subtotal"
+      :tax="tax"
+      :shipping="shipping"
+    ></cart-summary>
   </div>
 </div>
         </div>

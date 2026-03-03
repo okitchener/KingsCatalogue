@@ -1,11 +1,26 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 import CartList from "./components/CartList.js";
 import CartSummary from "./components/CartSummary.js";
+import AddToCartModal from "./components/AddToCartModal.js";
+import ProductDetailsModal from "./components/ProductDetailsModal.js";
+import {
+  addOrUpdateCartItem,
+  decreaseCartItemQty,
+  getShipping,
+  getSubtotal,
+  getTax,
+  increaseCartItemQty,
+  loadCart,
+  removeCartItem,
+  saveCart
+} from "./components/cartStore.js";
 
 createApp({
   components: {
     CartList,
-    CartSummary
+    CartSummary,
+    AddToCartModal,
+    ProductDetailsModal
   },
   data() {
     return {
@@ -46,21 +61,14 @@ createApp({
     };
   },
   mounted() {
-  const saved = localStorage.getItem("kingsCart");
-  if (saved) {
-    try {
-      this.cart = JSON.parse(saved);
-    } catch {
-      this.cart = [];
-    }
-  }
-},
+    this.cart = loadCart();
+  },
 
   watch: {
     cart: {
         deep: true,
         handler(newCart) {
-            localStorage.setItem("kingsCart", JSON.stringify(newCart));
+            saveCart(newCart);
         },
     }
 },
@@ -90,13 +98,13 @@ createApp({
       return this.cart.reduce((totalQty, item) => totalQty + item.qty, 0);
     },
     subtotal() {
-      return this.cart.reduce((subtotalAmount, item) => subtotalAmount + item.price * item.qty, 0);
+      return getSubtotal(this.cart);
     },
     tax() {
-      return this.subtotal * 0.1; //  tax rate of 10%
+      return getTax(this.subtotal);
     },
     shipping() {
-      return this.cart.length > 0 ? 15 : 0; //  flat shipping rate
+      return getShipping(this.cart);
     }
   },
   methods: {
@@ -128,23 +136,16 @@ createApp({
       };
     },
     addToCart(product) {
-      if (!product) return;
-      const size = product.size ?? product.sizes?.[0] ?? "M";
-      const color = product.color ?? product.colors?.[0] ?? "Default";
-      const qty = Math.max(1, Number.parseInt(product.qty, 10) || 1);
-
-      const found = this.cart.find(cartItem => cartItem.id === product.id && cartItem.size === size && cartItem.color === color);
-      if (found) found.qty += qty;
-      else this.cart.push({ ...product, size, color, qty });
+      addOrUpdateCartItem(this.cart, product);
     },
     increaseQty(item) {
-      item.qty += 1;
+      increaseCartItemQty(item);
     },
     decreaseQty(item) {
-      if (item.qty > 1) item.qty -= 1;
+      decreaseCartItemQty(item);
     },
     removeFromCart(itemToRemove) {
-      this.cart = this.cart.filter(cartItem => !(cartItem.id === itemToRemove.id && cartItem.size === itemToRemove.size && cartItem.color === itemToRemove.color));
+      this.cart = removeCartItem(this.cart, itemToRemove);
     }
   }
 }).mount("#app");

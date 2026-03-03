@@ -1,6 +1,22 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+import CartList from "./components/CartList.js";
+import CartSummary from "./components/CartSummary.js";
+import {
+  decreaseCartItemQty,
+  getShipping,
+  getSubtotal,
+  getTax,
+  increaseCartItemQty,
+  loadCart,
+  removeCartItem,
+  saveCart
+} from "./components/cartStore.js";
 
 createApp({
+  components: {
+    CartList,
+    CartSummary
+  },
   data() {
     return {
       cart: [],
@@ -21,45 +37,39 @@ createApp({
     };
   },
   mounted() {
-    const saved = localStorage.getItem("kingsCart");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        this.cart = Array.isArray(parsed)
-          ? parsed.map(item => this.normalizeCartItem(item))
-          : [];
-      } catch {
-        this.cart = [];
+    this.cart = loadCart();
+  },
+  watch: {
+    cart: {
+      deep: true,
+      handler(newCart) {
+        saveCart(newCart);
       }
     }
   },
   computed: {
     subtotal() {
-      return this.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      return getSubtotal(this.cart);
     },
     tax() {
-      return this.subtotal * 0.1;
+      return getTax(this.subtotal);
     },
     shipping() {
-      return this.cart.length > 0 ? 15 : 0;
+      return getShipping(this.cart);
     },
     total() {
       return this.subtotal + this.tax + this.shipping;
     }
   },
   methods: {
-    money(value) {
-      return `$${Number(value).toFixed(2)}`;
+    increaseQty(item) {
+      increaseCartItemQty(item);
     },
-    normalizeCartItem(item) {
-      const size = item.size ?? item.sizes?.[0] ?? "M";
-      const color = item.color ?? item.colors?.[0] ?? "Default";
-      return {
-        ...item,
-        size,
-        color,
-        qty: item.qty ?? 1
-      };
+    decreaseQty(item) {
+      decreaseCartItemQty(item);
+    },
+    removeFromCart(itemToRemove) {
+      this.cart = removeCartItem(this.cart, itemToRemove);
     },
     verifyDetails() {
       this.detailsVerified = true;
