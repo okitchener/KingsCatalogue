@@ -93,32 +93,11 @@
     <section class="col-12 col-md-10 pt-3">
   <div class="row row-cols-1 row-cols-md-3 g-3">
     <div class="col" v-for="product in filteredProducts" :key="product.id">
-      <div class="card h-100">
-        <div class="card-body">
-            <div class="ratio ratio-1x1 mb-3 product-card-media">
-          <img :src="product.image" class="w-100 h-100 object-fit-cover" :alt="product.name">
-            </div>
-          <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text">{{ product.description }}</p>
-          <h3 class="card-title">${{ product.price.toFixed(2) }}</h3>
-          <div class="d-grid gap-2 d-sm-flex mt-3">
-<button
-  type="button"
-  class="btn btn-secondary"
-  data-bs-toggle="modal"
-  data-bs-target="#productDetailsModal"
-  @click="openDetails(product)"
->View details</button>          
-  <button
-    type="button"
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#addToCartModal"
-    @click="openCartOptions(product)"
-  >Add to cart</button>
-          </div>
-        </div>
-      </div>
+      <product-card
+        :product="product"
+        @view-details="openDetails"
+        @add-options="openCartOptions"
+      ></product-card>
     </div>
 
     <!-- Cart Drawer mostly pulled from bootstrap -->

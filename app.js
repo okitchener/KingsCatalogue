@@ -3,12 +3,14 @@ import CartList from "./components/CartList.js";
 import CartSummary from "./components/CartSummary.js";
 import AddToCartModal from "./components/AddToCartModal.js";
 import ProductDetailsModal from "./components/ProductDetailsModal.js";
+import ProductCard from "./components/ProductCard.js";
 import { useCartStore } from "./components/useCartStore.js";
 
 const cartStore = useCartStore();
 
 createApp({
   components: {
+    ProductCard,
     CartList,
     CartSummary,
     AddToCartModal,
