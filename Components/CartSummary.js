@@ -11,6 +11,10 @@ const CartSummary = {
     shipping: {
       type: Number,
       required: true
+    },
+    showCheckoutButton: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -36,7 +40,7 @@ const CartSummary = {
         <p class="fw-bold">Grand Total</p>
         <h2 class="fw-bold">{{ '$' + grandTotal.toFixed(2) }}</h2>
       </div>
-      <a href="checkout.html" class="btn btn-primary w-100">Proceed to Checkout</a>
+      <a v-if="showCheckoutButton" href="checkout.html" class="btn btn-primary w-100">Proceed to Checkout</a>
     </div>
   `
 };
