@@ -3,17 +3,9 @@ import CartList from "./components/CartList.js";
 import CartSummary from "./components/CartSummary.js";
 import AddToCartModal from "./components/AddToCartModal.js";
 import ProductDetailsModal from "./components/ProductDetailsModal.js";
-import {
-  addOrUpdateCartItem,
-  decreaseCartItemQty,
-  getShipping,
-  getSubtotal,
-  getTax,
-  increaseCartItemQty,
-  loadCart,
-  removeCartItem,
-  saveCart
-} from "./components/cartStore.js";
+import { useCartStore } from "./components/useCartStore.js";
+
+const cartStore = useCartStore();
 
 createApp({
   components: {
@@ -57,21 +49,9 @@ createApp({
       sortBy: "",
       selectedProduct: null,
       selectedCartProduct: null,
-      cart: []
+      cart: cartStore.cart
     };
   },
-  mounted() {
-    this.cart = loadCart();
-  },
-
-  watch: {
-    cart: {
-        deep: true,
-        handler(newCart) {
-            saveCart(newCart);
-        },
-    }
-},
   computed: {
     filteredProducts() {
       const filtered = this.products.filter(product => {
@@ -98,13 +78,13 @@ createApp({
       return this.cart.reduce((totalQty, item) => totalQty + item.qty, 0);
     },
     subtotal() {
-      return getSubtotal(this.cart);
+      return cartStore.subtotal.value;
     },
     tax() {
-      return getTax(this.subtotal);
+      return cartStore.tax.value;
     },
     shipping() {
-      return getShipping(this.cart);
+      return cartStore.shipping.value;
     }
   },
   methods: {
@@ -136,16 +116,16 @@ createApp({
       };
     },
     addToCart(product) {
-      addOrUpdateCartItem(this.cart, product);
+      cartStore.addToCart(product);
     },
     increaseQty(item) {
-      increaseCartItemQty(item);
+      cartStore.increaseQty(item);
     },
     decreaseQty(item) {
-      decreaseCartItemQty(item);
+      cartStore.decreaseQty(item);
     },
     removeFromCart(itemToRemove) {
-      this.cart = removeCartItem(this.cart, itemToRemove);
+      cartStore.removeFromCart(itemToRemove);
     }
   }
 }).mount("#app");

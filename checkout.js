@@ -1,25 +1,22 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 import CartList from "./components/CartList.js";
 import CartSummary from "./components/CartSummary.js";
-import {
-  decreaseCartItemQty,
-  getShipping,
-  getSubtotal,
-  getTax,
-  increaseCartItemQty,
-  loadCart,
-  removeCartItem,
-  saveCart
-} from "./components/cartStore.js";
+import CheckoutForm from "./components/CheckoutForm.js";
+import CheckoutProgress from "./components/CheckoutProgress.js";
+import { useCartStore } from "./components/useCartStore.js";
+
+const cartStore = useCartStore();
 
 createApp({
   components: {
     CartList,
-    CartSummary
+    CartSummary,
+    CheckoutForm,
+    CheckoutProgress
   },
   data() {
     return {
-      cart: [],
+      cart: cartStore.cart,
       detailsVerified: false,
       details: {
         name: "",
@@ -36,26 +33,15 @@ createApp({
       }
     };
   },
-  mounted() {
-    this.cart = loadCart();
-  },
-  watch: {
-    cart: {
-      deep: true,
-      handler(newCart) {
-        saveCart(newCart);
-      }
-    }
-  },
   computed: {
     subtotal() {
-      return getSubtotal(this.cart);
+      return cartStore.subtotal.value;
     },
     tax() {
-      return getTax(this.subtotal);
+      return cartStore.tax.value;
     },
     shipping() {
-      return getShipping(this.cart);
+      return cartStore.shipping.value;
     },
     total() {
       return this.subtotal + this.tax + this.shipping;
@@ -63,13 +49,13 @@ createApp({
   },
   methods: {
     increaseQty(item) {
-      increaseCartItemQty(item);
+      cartStore.increaseQty(item);
     },
     decreaseQty(item) {
-      decreaseCartItemQty(item);
+      cartStore.decreaseQty(item);
     },
     removeFromCart(itemToRemove) {
-      this.cart = removeCartItem(this.cart, itemToRemove);
+      cartStore.removeFromCart(itemToRemove);
     },
     verifyDetails() {
       this.detailsVerified = true;
