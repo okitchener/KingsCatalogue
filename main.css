@@ -1,4 +1,5 @@
 header {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px 0px inset;
   background-color: #4a148c;
 }
 header img {
@@ -16,25 +17,43 @@ header i {
   padding: 10px;
 }
 
+.btn {
+  border-radius: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 140ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 0.25rem rgba(74, 20, 140, 0.28);
+}
 .btn.btn-primary {
   background-color: #ffd700;
   border-color: #ffd700;
+  color: #212529;
+}
+.btn.btn-primary:hover {
+  background-color: #e6c200;
+  border-color: #e6c200;
 }
 .btn.btn-secondary {
   background-color: #c0c0c0;
   border-color: #c0c0c0;
-}
-.btn.btn-primary, .btn.btn-secondary {
   color: #212529;
+}
+.btn.btn-secondary:hover {
+  background-color: #adadad;
+  border-color: #adadad;
 }
 
 h3.card-title {
   color: #4a148c;
-}
-
-.product-card-media img {
-  object-fit: cover;
-  object-position: center;
 }
 
 input[type=range] {
@@ -60,6 +79,10 @@ input[type=range]::-webkit-slider-runnable-track {
   border-radius: 5px;
 }
 
+div.card {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
 div.col {
   padding: 1rem;
 }
@@ -69,6 +92,39 @@ footer {
 }
 footer ul {
   padding: 1rem;
+}
+
+.kc-toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1080;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: min(92vw, 360px);
+  padding: 0.8rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #ffd700;
+  background: linear-gradient(135deg, #4a148c 0%, #34105f 100%);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28), 0 0 0 2px rgba(255, 215, 0, 0.18);
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.kc-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.kc-toast i {
+  color: #ffd700;
+  font-size: 1.1rem;
+}
+.kc-toast span {
+  color: #f8f9fa;
+  font-weight: 500;
 }
 
 /*# sourceMappingURL=main.css.map */

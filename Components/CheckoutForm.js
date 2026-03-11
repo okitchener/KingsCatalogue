@@ -1,4 +1,9 @@
+import CheckoutReview from "./CheckoutReview.js";
+
 const CheckoutForm = {
+  components: {
+    CheckoutReview
+  },
   props: {
     details: {
       type: Object,
@@ -9,7 +14,7 @@ const CheckoutForm = {
       required: true
     }
   },
-  emits: ["verify-details"],
+  emits: ["verify-details", "edit-details", "checkout"],
   template: `
     <div>
       <div v-if="!detailsVerified">
@@ -66,21 +71,12 @@ const CheckoutForm = {
         <a href="index.html" class="btn btn-link">Return to main menu</a>
       </div>
 
-      <div v-else class="border rounded-3 p-3 bg-white">
-        <h5 class="mb-3">Verify Details</h5>
-        <p class="mb-1"><strong>Name:</strong> {{ details.name }}</p>
-        <p class="mb-1"><strong>Email:</strong> {{ details.email }}</p>
-        <p class="mb-1"><strong>Phone:</strong> {{ details.phone }}</p>
-        <p class="mb-1"><strong>Address:</strong> {{ details.address }}</p>
-        <p class="mb-1"><strong>City:</strong> {{ details.city }}</p>
-        <p class="mb-1"><strong>State/Province:</strong> {{ details.state }}</p>
-        <p class="mb-1"><strong>ZIP/Postal Code:</strong> {{ details.zip }}</p>
-        <p class="mb-1"><strong>Delivery Option:</strong> {{ details.deliveryOption }}</p>
-        <p class="mb-1"><strong>Card Number:</strong> {{ details.cardNumber }}</p>
-        <p class="mb-1"><strong>Expiry Date:</strong> {{ details.expiry }}</p>
-        <p class="mb-0"><strong>CVV:</strong> {{ details.cvv }}</p>
-        <button type="button" class="btn btn-primary mt-3">Checkout</button>
-      </div>
+      <checkout-review
+        v-else
+        :details="details"
+        @edit-details="$emit('edit-details')"
+        @checkout="$emit('checkout')"
+      ></checkout-review>
     </div>
   `
 };

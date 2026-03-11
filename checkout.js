@@ -59,6 +59,13 @@ createApp({
     },
     verifyDetails() {
       this.detailsVerified = true;
+    },
+    editDetails() {
+      this.detailsVerified = false;
+    },
+    checkout() {
+      // Placeholder for future validation and submission flow.
+      this.detailsVerified = true;
     }
   }
 }).mount("#checkoutApp");

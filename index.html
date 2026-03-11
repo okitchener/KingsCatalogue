@@ -129,6 +129,11 @@
   :selected-product="selectedProduct"
   @add-to-cart="addToCart"
 ></product-details-modal>
+
+<toast-message
+  :visible="toast.visible"
+  :message="toast.message"
+></toast-message>
 </div>
   </div>
 

@@ -47,7 +47,7 @@ const ProductDetailsModal = {
                   <button type="button" class="btn btn-outline-secondary" @click="selectedProduct.qty++">+</button>
                 </div>
 
-                <button type="button" class="btn btn-primary" @click="$emit('add-to-cart', selectedProduct)">Add to cart</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="$emit('add-to-cart', selectedProduct)">Add to cart</button>
               </div>
             </div>
           </div>
