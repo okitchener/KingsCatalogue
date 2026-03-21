@@ -1,14 +1,19 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import CartList from "./components/CartList.js";
-import CartSummary from "./components/CartSummary.js";
-import AddToCartModal from "./components/AddToCartModal.js";
-import ProductDetailsModal from "./components/ProductDetailsModal.js";
-import ProductCard from "./components/ProductCard.js";
-import ToastMessage from "./components/ToastMessage.js";
-import { useCartStore } from "./components/useCartStore.js";
+import CartList from "./Components/CartList.js";
+import CartSummary from "./Components/CartSummary.js";
+import AddToCartModal from "./Components/AddToCartModal.js";
+import ProductDetailsModal from "./Components/ProductDetailsModal.js";
+import ProductCard from "./Components/ProductCard.js";
+import ToastMessage from "./Components/ToastMessage.js";
+import { useCartStore } from "./Components/useCartStore.js";
+import { getFilteredProducts } from "./Components/useCatalogQuery.js";
+import { buildSelectedCartProduct, buildSelectedProduct } from "./Components/useProductSelection.js";
+import { updateCartBadges } from "./Components/useCartBadge.js";
+import { createToastController } from "./Components/useToast.js";
 import products from "./products.js";
 
 const cartStore = useCartStore();
+const toastController = createToastController();
 
 createApp({
   components: {
@@ -21,82 +26,38 @@ createApp({
   },
   data() {
     return {
-      products,
+      products: products,
       selectedCategories: [],
       maxPrice: 200,
-      sortBy: "",
+      sortBy: "aToZ",
       selectedProduct: null,
       selectedCartProduct: null,
       cart: cartStore.cart,
-      toast: {
-        visible: false,
-        message: ""
-      },
-      toastTimer: null
+      toast: toastController.toast
     };
   },
   computed: {
     filteredProducts() {
-      const filtered = this.products.filter(product => {
-        const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.includes(product.category);
-        const matchesPrice = product.price <= this.maxPrice;
-        return matchesCategory && matchesPrice;
-      });
-
-      if (this.sortBy === "featured") {
-        return filtered.filter(product => product.featured === true);
-      }
-
-      if (this.sortBy === "priceLowHigh") {
-        return [...filtered].sort((first, second) => first.price - second.price);
-      }
-
-      if (this.sortBy === "priceHighLow") {
-        return [...filtered].sort((first, second) => second.price - first.price);
-      }
-
-      return filtered;
+      return getFilteredProducts(this.products, this.selectedCategories, this.maxPrice, this.sortBy);
     },
     cartCount() {
       return this.cart.reduce((totalQty, item) => totalQty + item.qty, 0);
-    },
-    subtotal() {
-      return cartStore.subtotal.value;
-    },
-    tax() {
-      return cartStore.tax.value;
-    },
-    shipping() {
-      return cartStore.shipping.value;
+    }
+  },
+  watch: {
+    cartCount: {
+      handler(newCount) {
+        updateCartBadges(newCount);
+      },
+      immediate: true
     }
   },
   methods: {
     openCartOptions(product) {
-      const sizes = product.sizes ?? ["M"];
-      const colors = product.colors ?? ["Default"];
-
-      this.selectedCartProduct = {
-        ...product,
-        sizes,
-        colors,
-        size: sizes[0],
-        color: colors[0],
-        qty: 1
-      };
+      this.selectedCartProduct = buildSelectedCartProduct(product);
     },
     openDetails(product) {
-      const sizes = product.sizes ?? ["M"];
-      const colors = product.colors ?? ["Default"];
-
-      this.selectedProduct = {
-        ...product,
-        qty: 1,
-        bullets: product.bullets ?? [],
-        sizes,
-        colors,
-        size: sizes[0],
-        color: colors[0]
-      };
+      this.selectedProduct = buildSelectedProduct(product);
     },
     addToCart(product) {
       cartStore.addToCart(product);
@@ -105,17 +66,7 @@ createApp({
       this.showAddedToCartToast(productName);
     },
     showAddedToCartToast(productName) {
-      this.toast.message = `${productName} was added to the cart`;
-      this.toast.visible = true;
-
-      if (this.toastTimer) {
-        clearTimeout(this.toastTimer);
-      }
-
-      this.toastTimer = setTimeout(() => {
-        this.toast.visible = false;
-        this.toastTimer = null;
-      }, 2200);
+      toastController.show(`${productName} was added to the cart`);
     },
     increaseQty(item) {
       cartStore.increaseQty(item);
@@ -128,8 +79,6 @@ createApp({
     }
   },
   beforeUnmount() {
-    if (this.toastTimer) {
-      clearTimeout(this.toastTimer);
-    }
+    toastController.cleanup();
   }
 }).mount("#app");

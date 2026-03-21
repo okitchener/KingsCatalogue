@@ -18,8 +18,8 @@ const ProductDetailsModal = {
           <div class="modal-body">
             <div class="row g-4">
               <div class="col-12 col-lg-6">
-                <div class="ratio ratio-1x1">
-                  <img :src="selectedProduct.image" :alt="selectedProduct.name" class="w-100 h-100 object-fit-cover border">
+                <div class="ratio ratio-1x1 product-card-media">
+                  <img :src="selectedProduct.image" :alt="selectedProduct.name" class="w-100 h-100 object-fit-cover">
                 </div>
               </div>
 
@@ -42,12 +42,12 @@ const ProductDetailsModal = {
 
                 <p class="fw-semibold mb-2">Quantity: {{ selectedProduct.qty }}</p>
                 <div class="d-flex align-items-center gap-2 mb-4">
-                  <button type="button" class="btn btn-outline-secondary" @click="selectedProduct.qty > 1 ? selectedProduct.qty-- : 1">-</button>
+                  <button type="button" class="btn btn-outline-secondary border border-2 border-secondary" @click="selectedProduct.qty > 1 ? selectedProduct.qty-- : 1">-</button>
                   <span>{{ selectedProduct.qty }}</span>
-                  <button type="button" class="btn btn-outline-secondary" @click="selectedProduct.qty++">+</button>
+                  <button type="button" class="btn btn-outline-secondary border border-2 border-secondary" @click="selectedProduct.qty++">+</button>
                 </div>
 
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="$emit('add-to-cart', selectedProduct)">Add to cart</button>
+                <button type="button" class="btn btn-primary border border-2 border-secondary" data-bs-dismiss="modal" @click="$emit('add-to-cart', selectedProduct)">Add to Chest</button>
               </div>
             </div>
           </div>

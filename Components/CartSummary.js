@@ -1,15 +1,7 @@
 const CartSummary = {
   props: {
-    subtotal: {
-      type: Number,
-      required: true
-    },
-    tax: {
-      type: Number,
-      required: true
-    },
-    shipping: {
-      type: Number,
+    cart: {
+      type: Array,
       required: true
     },
     showCheckoutButton: {
@@ -18,6 +10,15 @@ const CartSummary = {
     }
   },
   computed: {
+    subtotal() {
+      return this.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    },
+    tax() {
+      return this.subtotal * 0.1;
+    },
+    shipping() {
+      return this.cart.length > 0 ? 15 : 0;
+    },
     grandTotal() {
       return this.subtotal + this.tax + this.shipping;
     }

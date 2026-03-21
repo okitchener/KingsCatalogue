@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" href="media/crown.png">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- Header mostly pulled from bootstrap-->
     <header class="mb-0 border-bottom">
         <!-- Mobile header -->
@@ -20,9 +20,10 @@
             <button class="btn p-0 border-0 text-white" aria-label="Open menu"><i class="bi bi-list fs-2"></i></button>
             <a href="/" class="link-body-emphasis text-decoration-none"><span class="fs-5 text-white text-nowrap">Kings
                     Catalogue</span></a>
-            <button type="button" class="btn p-0 border-0 bg-transparent text-white" aria-label="Open cart"
+            <button type="button" class="btn p-0 border-0 bg-transparent text-white position-relative" aria-label="Open cart"
   data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
-  <i class="bi bi-cart3 fs-3"></i>
+  <img src="media/treasure_chest.png" alt="Open cart" width="34" height="34">
+  <span class="js-cart-count-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none"></span>
 </button>
         </div>
         <!-- Desktop header -->
@@ -36,9 +37,10 @@
             <div class="col-md-6 ps-md-3"><input type="search" class="form-control" placeholder="Search royal wares..."
                     aria-label="Search"></div>
             <div class="col-md-3 text-end">
-                <button type="button" class="btn p-0 border-0 bg-transparent text-white" aria-label="Open cart"
+                <button type="button" class="btn p-0 border-0 bg-transparent text-white position-relative" aria-label="Open cart"
   data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
-  <i class="bi bi-cart3"></i>
+  <img src="media/treasure_chest.png" alt="Open cart" width="34" height="34">
+  <span class="js-cart-count-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none"></span>
 </button>
                 <button type="button" class="btn p-0 border-0 bg-transparent text-white" aria-label="Open profile">
   <i class="bi bi-person-fill"></i>
@@ -50,13 +52,13 @@
     <div class="d-block d-md-none px-3 py-2 border-bottom">
         <input type="search" class="form-control" placeholder="Search royal wares..." aria-label="Search">
     </div>
-  <div id="checkoutApp">
-   <main class="container-fluid">
+  <div id="checkoutApp" class="d-flex flex-column flex-grow-1">
+   <main class="container-fluid flex-grow-1">
   <div class="row">
     <!-- Left side filter column -->
     <aside class="col-12 col-md-2 pt-3 border-end">
     </aside>
-    <section class="col-12 col-md-10 pt-3">
+    <section class="col-12 col-md-10 pt-3 pb-4 pb-md-5">
       <checkout-progress :details-verified="detailsVerified"></checkout-progress>
  <div class="row g-4">
     <div class="col-12 col-lg-8">
@@ -78,9 +80,7 @@
           @remove="removeFromCart"
         ></cart-list>
         <cart-summary
-          :subtotal="subtotal"
-          :tax="tax"
-          :shipping="shipping"
+          :cart="cart"
           :show-checkout-button="false"
         ></cart-summary>
       </div>
@@ -92,14 +92,14 @@
   </div>
 </main>
     <!--Footer mostly pulled from bootstrap-->
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <div class="col-md-4 d-flex align-items-center"> <a href="/"
-                    class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1" aria-label="Bootstrap"> <svg
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 mt-auto border-top">
+          <div class="col-md-4 d-flex align-items-center"> <a href="/"
+              class="me-2 text-body-secondary text-decoration-none lh-1" aria-label="Bootstrap"> <svg
                         class="bi" width="30" height="24" aria-hidden="true">
                         <use xlink:href="#bootstrap"></use>
-                    </svg> </a>  <img src="media/crownBlack.png" alt="Crown Icon" width="32" height="32" class="me-2">
-                     <span class="mb-3 mb-md-0 text-body-secondary">© 2026 Owen Kitchener</span> </div>
-            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+              </svg> </a>  <img src="media/crownBlack.png" alt="Crown Icon" width="32" height="32" class="me-2">
+               <span class="mb-0 text-body-secondary">© 2026 Owen Kitchener</span> </div>
+          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex mb-0 py-0">
                <li class="ms-3"><a class="text-body-secondary" href="https://www.instagram.com" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a></li>
 <li class="ms-3"><a class="text-body-secondary" href="https://www.facebook.com" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a></li>
 <li class="ms-3"><a class="text-body-secondary" href="https://www.twitter.com" aria-label="Twitter"><i class="bi bi-twitter fs-5"></i></a></li>
@@ -107,7 +107,7 @@
             </ul>
     </footer>
 <!-- Cart Drawer mostly pulled from bootstrap -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
+    <div class="offcanvas offcanvas-end kc-cart-drawer" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="cartDrawerLabel">Your Royal Chest</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -120,9 +120,7 @@
       @remove="removeFromCart"
     ></cart-list>
     <cart-summary
-      :subtotal="subtotal"
-      :tax="tax"
-      :shipping="shipping"
+      :cart="cart"
       :show-checkout-button="false"
     ></cart-summary>
   </div>
