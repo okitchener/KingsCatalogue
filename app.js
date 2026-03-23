@@ -4,6 +4,7 @@ import CartSummary from "./Components/CartSummary.js";
 import AddToCartModal from "./Components/AddToCartModal.js";
 import ProductDetailsModal from "./Components/ProductDetailsModal.js";
 import ProductCard from "./Components/ProductCard.js";
+import CatalogSearch from "./Components/CatalogSearch.js";
 import ToastMessage from "./Components/ToastMessage.js";
 import { useCartStore } from "./Components/useCartStore.js";
 import { getFilteredProducts } from "./Components/useCatalogQuery.js";
@@ -18,6 +19,7 @@ const toastController = createToastController();
 createApp({
   components: {
     ProductCard,
+    CatalogSearch,
     CartList,
     CartSummary,
     AddToCartModal,
@@ -27,6 +29,7 @@ createApp({
   data() {
     return {
       products: products,
+      searchTerm: "",
       selectedCategories: [],
       maxPrice: 200,
       sortBy: "aToZ",
@@ -38,7 +41,14 @@ createApp({
   },
   computed: {
     filteredProducts() {
-      return getFilteredProducts(this.products, this.selectedCategories, this.maxPrice, this.sortBy);
+      const baseFiltered = getFilteredProducts(this.products, this.selectedCategories, this.maxPrice, this.sortBy);
+      const normalizedSearch = this.searchTerm.trim().toLowerCase();
+
+      if (!normalizedSearch) {
+        return baseFiltered;
+      }
+
+      return baseFiltered.filter((product) => product.name.toLowerCase().includes(normalizedSearch));
     },
     cartCount() {
       return this.cart.reduce((totalQty, item) => totalQty + item.qty, 0);
@@ -51,6 +61,9 @@ createApp({
       },
       immediate: true
     }
+  },
+  mounted() {
+    updateCartBadges(this.cartCount);
   },
   methods: {
     openCartOptions(product) {

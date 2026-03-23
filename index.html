@@ -14,11 +14,12 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+  <div id="app" class="d-flex flex-column flex-grow-1">
     <!-- Header mostly pulled from bootstrap-->
     <header class="mb-0 border-bottom">
         <!-- Mobile header -->
         <div class="d-flex d-md-none align-items-center justify-content-between py-2 px-3">
-            <button class="btn p-0 border-0 text-white" aria-label="Open menu"><i class="bi bi-list fs-2"></i></button>
+          <button class="btn p-0 border-0 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Open menu"><i class="bi bi-list fs-2"></i></button>
             <a href="/" class="link-body-emphasis text-decoration-none"><span class="fs-5 text-white text-nowrap">Kings
                     Catalogue</span></a>
             <button type="button" class="btn p-0 border-0 bg-transparent text-white position-relative" aria-label="Open cart"
@@ -35,28 +36,58 @@
                     <span class="fs-4 text-white text-nowrap">Kings Catalogue</span>
                 </a>
             </div>
-            <div class="col-md-6 ps-md-3"><input type="search" class="form-control" placeholder="Search royal wares..."
-                    aria-label="Search"></div>
+                <div class="col-md-6 ps-md-3">
+                  <catalog-search
+                    v-model="searchTerm"
+                    placeholder-text="Search royal wares..."
+                    aria-label-text="Search"
+                  ></catalog-search>
+                </div>
             <div class="col-md-3 text-end">
                 <button type="button" class="btn p-0 border-0 bg-transparent text-white position-relative" aria-label="Open cart"
   data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
   <img src="media/treasure_chest.png" alt="Open cart" width="34" height="34">
   <span class="js-cart-count-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none"></span>
 </button>
-                <button type="button" class="btn p-0 border-0 bg-transparent text-white" aria-label="Open profile">
+                <a href="profile.html" class="btn p-0 border-0 bg-transparent text-white" aria-label="Open profile">
   <i class="bi bi-person-fill"></i>
-</button>
+</a>
             </div>
         </div>
     </header>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column gap-2">
+        <a href="index.html" class="btn btn-secondary text-start">Home</a>
+        <a href="profile.html" class="btn btn-secondary text-start">Profile</a>
+        <button type="button" class="btn btn-primary text-start" data-bs-dismiss="offcanvas" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">Cart</button>
+      </div>
+    </div>
     <!-- Mobile search bar -->
     <div class="d-block d-md-none px-3 py-2 border-bottom">
-        <input type="search" class="form-control" placeholder="Search royal wares..." aria-label="Search">
+      <catalog-search
+        v-model="searchTerm"
+        placeholder-text="Search royal wares..."
+        aria-label-text="Search"
+      ></catalog-search>
     </div>
   <main class="container-fluid flex-grow-1">
-  <div id="app" class="row">
+  <div class="row">
     <!-- Left side filter column -->
-    <aside class="col-12 col-md-2 pt-3 border-end">
+    <aside class="col-12 col-md-3 col-lg-2 pt-3 border-end">
+      <button
+        class="btn btn-outline-secondary w-100 d-md-none mb-3"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#catalogFilters"
+        aria-expanded="false"
+        aria-controls="catalogFilters"
+      >Toggle Filters</button>
+
+      <div id="catalogFilters" class="collapse d-md-block">
       <h4>Filters:</h4>
       <h5>Category</h5>
       <div class="form-check flex-column">
@@ -86,14 +117,15 @@
   <select class="form-select" id="sortBy" v-model="sortBy">
         <option value="aToZ">A-Z</option>
         <option value="featured">Featured</option>
-        <option value="priceLowHigh">Price: Low to High</option>
-        <option value="priceHighLow">Price: High to Low</option>
+        <option value="priceLowHigh">Price: Low-High</option>
+        <option value="priceHighLow">Price: High-Low</option>
       </select>
+      </div>
     </aside>
 
     <!-- Cards on the right -->
-    <section class="col-12 col-md-10 pt-3">
-  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-3">
+    <section class="col-12 col-md-9 col-lg-10 pt-3">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-3">
     <div class="col" v-for="product in filteredProducts" :key="product.id">
       <product-card
         :product="product"

@@ -143,4 +143,60 @@ footer ul {
   --bs-offcanvas-width: min(95vw, 520px);
 }
 
+.profile-page-bg {
+  background: linear-gradient(180deg, #f6f2fb 0%, #ebe6f5 100%);
+}
+
+.profile-hero {
+  background: linear-gradient(135deg, #4a148c 0%, #5c1aa9 100%);
+  border: 1px solid rgba(255, 215, 0, 0.28);
+  box-shadow: 0 10px 24px rgba(74, 20, 140, 0.22);
+}
+
+.profile-avatar {
+  width: 98px;
+  height: 98px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #d5dbe4 0%, #b9c2cf 100%);
+  border: 3px solid rgba(255, 215, 0, 0.75);
+}
+
+.profile-heading {
+  text-decoration: underline;
+}
+
+.profile-progress-track {
+  background-color: rgba(114, 128, 152, 0.75);
+  height: 0.85rem;
+  border-radius: 999px;
+}
+
+.profile-progress-fill {
+  background: linear-gradient(90deg, #ffd700 0%, #e7c100 100%);
+  border-radius: 999px;
+}
+
+.profile-nav {
+  background-color: #d6b8df;
+  border: 1px solid rgba(74, 20, 140, 0.12);
+}
+.profile-nav .btn {
+  text-align: left;
+}
+
+.profile-nav-link {
+  color: #3a2457;
+  font-weight: 500;
+}
+
+.profile-content {
+  background-color: #efedf2;
+  font-size: 1rem;
+}
+
+.profile-card {
+  background-color: #f7f5fa;
+  border: 1px solid #cfd2db;
+}
+
 /*# sourceMappingURL=main.css.map */

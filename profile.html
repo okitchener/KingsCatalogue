@@ -4,8 +4,166 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kings Catalogue - Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="icon" type="image/png" href="media/crown.png">
 </head>
-<body>
-    
+<body class="d-flex flex-column min-vh-100 profile-page-bg">
+  <div id="profileApp" class="d-flex flex-column flex-grow-1">
+    <header class="mb-0 border-bottom">
+        <div class="d-flex d-md-none align-items-center justify-content-between py-2 px-3">
+            <button class="btn p-0 border-0 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Open menu"><i class="bi bi-list fs-2"></i></button>
+            <a href="index.html" class="link-body-emphasis text-decoration-none"><span class="fs-5 text-white text-nowrap">Kings Catalogue</span></a>
+              <button type="button" class="btn p-0 border-0 bg-transparent text-white position-relative" aria-label="Open cart"
+                      data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+                  <img src="media/treasure_chest.png" alt="Open cart" width="34" height="34">
+                  <span class="js-cart-count-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none"></span>
+              </button>
+        </div>
+        <div class="d-none d-md-flex flex-wrap align-items-center justify-content-md-between py-3 px-3 px-md-4">
+            <div class="col-md-3 mb-2 mb-md-0">
+                <a href="index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <img src="media/crown.png" alt="Crown Icon" width="32" height="32" class="me-2">
+                    <span class="fs-4 text-white text-nowrap">Kings Catalogue</span>
+                </a>
+            </div>
+            <div class="col-md-6 ps-md-3"><input type="search" class="form-control" placeholder="Search royal wares..." aria-label="Search"></div>
+            <div class="col-md-3 text-end">
+                <button type="button" class="btn p-0 border-0 bg-transparent text-white position-relative" aria-label="Open cart"
+                        data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+                    <img src="media/treasure_chest.png" alt="Open cart" width="34" height="34">
+                    <span class="js-cart-count-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none"></span>
+                </button>
+                <a href="profile.html" class="btn p-0 border-0 bg-transparent text-white" aria-label="Open profile">
+                    <i class="bi bi-person-fill"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-flex flex-column gap-2">
+                <a href="index.html" class="btn btn-secondary text-start">Home</a>
+                <a href="profile.html" class="btn btn-secondary text-start">Profile</a>
+                <button type="button" class="btn btn-primary text-start" data-bs-dismiss="offcanvas" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">Cart</button>
+            </div>
+        </div>
+
+        <div class="d-block d-md-none px-3 py-2 border-bottom">
+                <input type="search" class="form-control" placeholder="Search royal wares..." aria-label="Search">
+        </div>
+
+    <main class="container-fluid flex-grow-1 py-4 px-3 px-md-4">
+        <section class="profile-hero p-3 p-md-4 rounded-4 mb-4">
+            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3 gap-md-4">
+                <div class="profile-avatar flex-shrink-0"></div>
+                <div class="w-100">
+                    <h1 class="h3 mb-2 text-warning profile-heading">UserName - CurrentRank of the Realm</h1>
+                    <p class="mb-2 text-light fw-semibold">Current Points: <span class="text-info">CurrentPoints</span> / <span class="text-info">PointsToNextRank</span> points until <span class="text-info">NextRank</span></p>
+                    <div class="progress profile-progress-track" role="progressbar" aria-label="Profile progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar profile-progress-fill" style="width: 50%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="row g-4">
+            <aside class="col-12 col-lg-2">
+                <div class="profile-nav p-3 rounded-4 h-100">
+                    <button class="btn btn-primary w-100 mb-3">Overview</button>
+                    <a href="#" class="btn btn-secondary w-100 mb-3 profile-nav-link">Order History</a>
+                    <a href="#" class="btn btn-secondary w-100 mb-3 profile-nav-link">Wishlist</a>
+                    <a href="#" class="btn btn-secondary w-100 profile-nav-link">Settings</a>
+                </div>
+            </aside>
+
+            <div class="col-12 col-lg-10">
+                <div class="profile-content p-3 p-md-4 rounded-4">
+                    <div class="row g-4">
+                        <div class="col-12 col-xl-6">
+                            <div class="profile-card p-3 rounded-4 mb-3">
+                                <h2 class="h5 mb-2">Basic Info</h2>
+                                <p class="mb-2"><strong>Full Name:</strong> <a href="#">UserFullName</a> <a href="#" class="ms-3">Edit</a></p>
+                                <p class="mb-0"><strong>Email:</strong> <a href="#">UserEmail</a> <a href="#" class="ms-3">Edit</a></p>
+                            </div>
+                            <div class="profile-card p-3 rounded-4">
+                                <h2 class="h5 mb-2">Shipping Address</h2>
+                                <p class="mb-0"><a href="#">ShippingAddressSummary</a> <a href="#" class="ms-3">Edit</a></p>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-xl-6">
+                            <div class="profile-card p-3 rounded-4 h-100">
+                                <p class="h5 mb-2">Kingdom Rank: <a href="#">CurrentRank</a> <i class="bi bi-crown-fill text-warning ms-1"></i></p>
+                                <p class="mb-2">Points: <a href="#">CurrentPoints</a> / <a href="#">PointsToNextRank</a></p>
+                                <div class="progress profile-progress-track mb-3" role="progressbar" aria-label="Rank progress" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar profile-progress-fill" style="width: 45%"></div>
+                                </div>
+                                <p class="mb-4">Reach <a href="#">PointsToNextRank</a> points to become a <a href="#">NextRank</a> and unlock exclusive royal deals.</p>
+
+                                <h3 class="h5 mb-2">Rank Tiers:</h3>
+                                <ul class="list-unstyled mb-3">
+                                    <li>Squire: 0-499 points</li>
+                                    <li>Knight: 500-1,999 points</li>
+                                    <li>Lord: 2,000-4,999 points</li>
+                                    <li>King: 5,000+ points</li>
+                                </ul>
+
+                                <h3 class="h5 mb-2">How to earn points:</h3>
+                                <ul class="list-unstyled mb-0">
+                                    <li>10 points per dollar spent</li>
+                                    <li>+15 points per review</li>
+                                    <li>+5 points for daily login</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-auto border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="index.html" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1" aria-label="Kings Catalogue">
+                <img src="media/crownBlack.png" alt="Crown Icon" width="32" height="32" class="me-2">
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2026 Owen Kitchener</span>
+        </div>
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a class="text-body-secondary" href="https://www.instagram.com" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="https://www.facebook.com" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="https://www.twitter.com" aria-label="Twitter"><i class="bi bi-twitter fs-5"></i></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="https://www.tiktok.com" aria-label="Tiktok"><i class="bi bi-tiktok fs-5"></i></a></li>
+        </ul>
+    </footer>
+
+        <div class="offcanvas offcanvas-end kc-cart-drawer" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="cartDrawerLabel">Your Royal Chest</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-flex flex-column">
+                <cart-list
+                  :cart="cart"
+                  @increase="increaseQty"
+                  @decrease="decreaseQty"
+                  @remove="removeFromCart"
+                ></cart-list>
+                <cart-summary :cart="cart"></cart-summary>
+            </div>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script type="module" src="./profile.js"></script>
+  </div>
 </body>
 </html>

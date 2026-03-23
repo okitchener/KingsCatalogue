@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file.
 
 
 ## [Unreleased]
-- Search Bar functionality 
 - Profile page
 - Login Page
 - Account Creation
@@ -16,16 +15,32 @@ All notable changes to this project will be documented in this file.
 - fix checkout functionality 
 - change inputs to require validation
 - Improve UI/UX
-- Mobile Header menu functionality
-- Fix Mobile filter system to be less cluttered 
--Fix medium screen filter spacing
+
+## [2.2.0] - 2026-03-22
+
+### Added
+- Added a themed profile page wireframe layout in profile.html to match the existing Kings Catalogue style.
+- Added profile-specific css in main.scss/main.css for the hero panel, rank sections, sidebar, and profile cards.
+- Added profile.js to connect the profile page to shared Vue cart components and store.
+
+### Changed
+- Updated the profile header to match index/checkout icon-style controls.
+- Updated the profile cart trigger to open the right-side offcanvas drawer (same interaction pattern as other pages).
+- Replaced the profile cart placeholder drawer content with shared cart-list and cart-summary components.
+
+### Fixed
+- Fixed profile cart behavior to use the same shared cart state as index and checkout pages.
+- Fixed profile cart icon badge behavior by using the same red quantity badge pattern and live count updates.
 
 ## [0.2.0] - 2026-03-21
 
 ### Added
-- Added Components/useCatalogQuery.js to control catalog filtering and sorting logic.
-- Added Components/useProductSelection.js to control modal product selection shaping.
+- Added Components/useCatalogQuery.js to contain catalog filtering and sorting logic.
+- Added Components/useProductSelection.js to contain modal product selection shaping.
 - Added Components/useToast.js to manage toast visibility timing and message state.
+- Added Components/CatalogSearch.js as a reusable search input component.
+- Added cart quantity badges to header chest icons with max display capped at 9+.
+- Added Components/useCartBadge.js to contain cart badge update logic.
 
 ### Changed
 - Moved cart totals logic (subtotal, tax, shipping, grand total) into Components/CartSummary.js.
@@ -34,9 +49,15 @@ All notable changes to this project will be documented in this file.
 - Applied Bootstrap sticky-footer layout so footers stay anchored to the bottom on short pages.
 - Widened cart drawer using a dedicated class and offcanvas width variable to prevent clipped cart actions.
 - Added extra checkout content bottom spacing to improve separation between checkout action buttons and footer.
+- Replaced header search inputs with the CatalogSearch component and bound them to shared search state.
+- Added product name filtering from the Search royal wares input so matching products display in the main grid.
+- Reduced mobile filter clutter with a collapsible filter panel toggle.
+- Improved medium layout by widening the filter column and shortening long sort label text.
+- Updated medium product listing layout from three cards per row to two cards per row.
 
 ### Fixed
 - Fixed delayed add-to-cart toast rendering by making toast state reactive.
+- Fixed cart badge disappearing on page refresh by syncing badge state after mount.
 
 ## [0.1.1] - 2026-03-20
 
