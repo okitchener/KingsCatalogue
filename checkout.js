@@ -19,6 +19,7 @@ createApp({
     return {
       cart: cartStore.cart,
       detailsVerified: false,
+      formStep: 1,
       details: {
         name: "",
         email: "",
@@ -65,6 +66,7 @@ createApp({
     },
     editDetails() {
       this.detailsVerified = false;
+      this.formStep = 1;
     },
     checkout() {
       // Placeholder for future validation and submission flow.
