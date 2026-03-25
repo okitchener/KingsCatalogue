@@ -1,10 +1,10 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import CartList from "./Components/CartList.js";
-import CartSummary from "./Components/CartSummary.js";
+import CartList from "./components/CartList.js";
+import CartSummary from "./components/CartSummary.js";
 import CheckoutForm from "./components/CheckoutForm.js";
 import CheckoutProgress from "./components/CheckoutProgress.js";
-import { updateCartBadges } from "./Components/useCartBadge.js";
-import { useCartStore } from "./Components/useCartStore.js";
+import { updateCartBadges } from "./components/useCartBadge.js";
+import { useCartStore } from "./components/useCartStore.js";
 
 const cartStore = useCartStore();
 

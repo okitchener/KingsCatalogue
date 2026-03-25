@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 
 ## [Unreleased]
-- Profile page
+- Profile page (functionality)
 - Login Page
 - Account Creation
 - Account login functionality
@@ -13,25 +13,24 @@ All notable changes to this project will be documented in this file.
 - Rewards/Rank-up System 
 - Discounts and Promo Codes
 - fix checkout functionality 
-- change inputs to require validation
 - Improve UI/UX
+- Kingdom family plan system
+- Sales
+- Wishlist/favorite function
+- Order history
+
 ## [2.5.0] - 2026-03-22
 
 ### Added
-- Added a multi-step checkout flow (Customer Information, Shipping Address, Payment) with step navigation controls.
+- Added a multi-step checkout stages (Customer Information, Shipping Address, Payment) with step navigation controls.
 - Added form step state wiring between checkout components (`formStep` + `step-change` event) so progress updates live.
 - Added themed checkout progress stepper styles in `main.scss`/`main.css` to match the Kings Catalogue royal purple and gold palette.
-- Added basic browser-native form validation across checkout steps using required fields and numeric-only patterns where applicable.
+- Added basic form validation across checkout steps using required fields and numeric-only patterns where needed.
 
 ### Changed
-- Replaced the previous accordion-based checkout details UI with a guided step-by-step wizard layout.
+- Replaced the previous  checkout details UI with a guided step-by-step wizard layout.
 - Upgraded checkout progress from a simple two-label indicator to a four-stage visual stepper with active and completed states.
-- Simplified checkout validation logic by removing complex custom validation state in favor of HTML constraint validation.
 - Updated payment input constraints: card number now enforces exactly 12 digits, CVV enforces exactly 3 digits, and expiry uses MM/DD pattern validation.
-
-### Fixed
-- Fixed oversized `CheckoutForm` content caused by duplicated legacy validation/template blocks.
-- Fixed checkout form template event bindings after cleanup to ensure component rendering and emitted events work correctly.
 
 ## [2.2.0] - 2026-03-22
 

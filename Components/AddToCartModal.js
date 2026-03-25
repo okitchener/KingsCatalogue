@@ -37,7 +37,7 @@ const AddToCartModal = {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary border border-2 border-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary border border-2 border-secondary" data-bs-dismiss="modal" @click="$emit('add-to-cart', selectedCartProduct)">Add to cart</button>
+            <button type="button" class="btn btn-primary border border-2 border-secondary" data-bs-dismiss="modal" @click="$emit('add-to-cart', selectedCartProduct)">Add to Chest</button>
           </div>
         </div>
       </div>
