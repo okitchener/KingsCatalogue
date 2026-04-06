@@ -2,11 +2,22 @@ import { computed, ref, watch } from "vue";
 
 const CART_KEY = "kingsCart";
 
+function getVariantSignature(item) {
+  return [
+    item.size ?? "",
+    item.color ?? "",
+    item.volume ?? "",
+    item.scent ?? ""
+  ].join("|");
+}
+
 function toCartItem(item) {
   return {
     ...item,
-    size: item.size ?? "M",
-    color: item.color ?? "Default",
+    size: item.size ?? "",
+    color: item.color ?? "",
+    volume: item.volume ?? "",
+    scent: item.scent ?? "",
     qty: Math.max(1, Number.parseInt(item.qty, 10) || 1)
   };
 }
@@ -42,8 +53,7 @@ export function useCartStore() {
     const found = cart.value.find(
       (cartItem) =>
         cartItem.id === normalized.id &&
-        cartItem.size === normalized.size &&
-        cartItem.color === normalized.color
+        getVariantSignature(cartItem) === getVariantSignature(normalized)
     );
 
     if (found) {
@@ -67,8 +77,7 @@ export function useCartStore() {
       (cartItem) =>
         !(
           cartItem.id === itemToRemove.id &&
-          cartItem.size === itemToRemove.size &&
-          cartItem.color === itemToRemove.color
+          getVariantSignature(cartItem) === getVariantSignature(itemToRemove)
         )
     );
   }

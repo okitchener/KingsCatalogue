@@ -7,7 +7,19 @@ export default {
       required: true
     }
   },
-  emits: ["increase", "decrease", "remove"]
+  emits: ["increase", "decrease", "remove"],
+  computed: {
+    variantLabel() {
+      const labels = [];
+
+      if (this.item.size) labels.push(`Size: ${this.item.size}`);
+      if (this.item.color) labels.push(`Color: ${this.item.color}`);
+      if (this.item.volume) labels.push(`Volume: ${this.item.volume}`);
+      if (this.item.scent) labels.push(`Scent: ${this.item.scent}`);
+
+      return labels.join(", ");
+    }
+  }
 };
 </script>
 
@@ -18,7 +30,7 @@ export default {
 
       <div class="flex-grow-1">
         <p class="mb-1 fw-semibold">{{ item.name }}</p>
-        <p class="mb-1 text-body-secondary">Size: {{ item.size }}, Color: {{ item.color }}</p>
+        <p v-if="variantLabel" class="mb-1 text-body-secondary">{{ variantLabel }}</p>
         <p class="mb-0 fw-bold">{{ "$" + item.price.toFixed(2) }}</p>
       </div>
 

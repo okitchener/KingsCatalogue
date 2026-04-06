@@ -23,7 +23,7 @@ export default {
     <div v-else class="d-flex flex-column gap-3">
       <CartListItem
         v-for="item in cart"
-        :key="item.id + '-' + item.size + '-' + item.color"
+        :key="item.id + '-' + (item.size || '') + '-' + (item.color || '') + '-' + (item.volume || '') + '-' + (item.scent || '')"
         :item="item"
         @increase="$emit('increase', $event)"
         @decrease="$emit('decrease', $event)"

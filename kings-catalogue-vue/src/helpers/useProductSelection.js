@@ -1,28 +1,35 @@
-function getSizes(product) {
-  return product.sizes ?? ["M"];
-}
-
-function getColors(product) {
-  return product.colors ?? ["Default"];
+function getOptions(product, key) {
+  if (!Array.isArray(product[key])) {
+    return [];
+  }
+  return product[key];
 }
 
 export function buildSelectedCartProduct(product) {
-  const sizes = getSizes(product);
-  const colors = getColors(product);
+  const sizes = getOptions(product, "sizes");
+  const colors = getOptions(product, "colors");
+  const volumes = getOptions(product, "volumes");
+  const scents = getOptions(product, "scents");
 
   return {
     ...product,
     sizes,
     colors,
-    size: sizes[0],
-    color: colors[0],
+    volumes,
+    scents,
+    size: sizes[0] ?? "",
+    color: colors[0] ?? "",
+    volume: volumes[0] ?? "",
+    scent: scents[0] ?? "",
     qty: 1
   };
 }
 
 export function buildSelectedProduct(product) {
-  const sizes = getSizes(product);
-  const colors = getColors(product);
+  const sizes = getOptions(product, "sizes");
+  const colors = getOptions(product, "colors");
+  const volumes = getOptions(product, "volumes");
+  const scents = getOptions(product, "scents");
 
   return {
     ...product,
@@ -30,7 +37,11 @@ export function buildSelectedProduct(product) {
     bullets: product.bullets ?? [],
     sizes,
     colors,
-    size: sizes[0],
-    color: colors[0]
+    volumes,
+    scents,
+    size: sizes[0] ?? "",
+    color: colors[0] ?? "",
+    volume: volumes[0] ?? "",
+    scent: scents[0] ?? ""
   };
 }

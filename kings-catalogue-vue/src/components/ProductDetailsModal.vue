@@ -35,15 +35,33 @@ export default {
               <ul class="mb-4 ps-3">
                 <li v-for="bullet in selectedProduct.bullets" :key="bullet">{{ bullet }}</li>
               </ul>
-              <label for="productSize" class="form-label fw-semibold">Size:</label>
-              <select id="productSize" v-model="selectedProduct.size" class="form-select mb-3">
-                <option v-for="size in selectedProduct.sizes" :key="size" :value="size">{{ size }}</option>
-              </select>
+              <template v-if="selectedProduct.sizes.length > 1">
+                <label for="productSize" class="form-label fw-semibold">Size:</label>
+                <select id="productSize" v-model="selectedProduct.size" class="form-select mb-3">
+                  <option v-for="size in selectedProduct.sizes" :key="size" :value="size">{{ size }}</option>
+                </select>
+              </template>
 
-              <label for="productColor" class="form-label fw-semibold">Color:</label>
-              <select id="productColor" v-model="selectedProduct.color" class="form-select mb-3">
-                <option v-for="color in selectedProduct.colors" :key="color" :value="color">{{ color }}</option>
-              </select>
+              <template v-if="selectedProduct.colors.length > 1">
+                <label for="productColor" class="form-label fw-semibold">Color:</label>
+                <select id="productColor" v-model="selectedProduct.color" class="form-select mb-3">
+                  <option v-for="color in selectedProduct.colors" :key="color" :value="color">{{ color }}</option>
+                </select>
+              </template>
+
+              <template v-if="selectedProduct.volumes.length > 1">
+                <label for="productVolume" class="form-label fw-semibold">Volume:</label>
+                <select id="productVolume" v-model="selectedProduct.volume" class="form-select mb-3">
+                  <option v-for="volume in selectedProduct.volumes" :key="volume" :value="volume">{{ volume }}</option>
+                </select>
+              </template>
+
+              <template v-if="selectedProduct.scents.length > 1">
+                <label for="productScent" class="form-label fw-semibold">Scent:</label>
+                <select id="productScent" v-model="selectedProduct.scent" class="form-select mb-3">
+                  <option v-for="scent in selectedProduct.scents" :key="scent" :value="scent">{{ scent }}</option>
+                </select>
+              </template>
 
               <p class="fw-semibold mb-2">Quantity: {{ selectedProduct.qty }}</p>
               <div class="d-flex align-items-center gap-2 mb-4">

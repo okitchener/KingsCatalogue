@@ -20,15 +20,33 @@ export default {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <label for="cartProductSize" class="form-label fw-semibold">Size</label>
-          <select id="cartProductSize" v-model="selectedCartProduct.size" class="form-select mb-3">
-            <option v-for="size in selectedCartProduct.sizes" :key="size" :value="size">{{ size }}</option>
-          </select>
+          <template v-if="selectedCartProduct.sizes.length > 1">
+            <label for="cartProductSize" class="form-label fw-semibold">Size</label>
+            <select id="cartProductSize" v-model="selectedCartProduct.size" class="form-select mb-3">
+              <option v-for="size in selectedCartProduct.sizes" :key="size" :value="size">{{ size }}</option>
+            </select>
+          </template>
 
-          <label for="cartProductColor" class="form-label fw-semibold">Color</label>
-          <select id="cartProductColor" v-model="selectedCartProduct.color" class="form-select mb-3">
-            <option v-for="color in selectedCartProduct.colors" :key="color" :value="color">{{ color }}</option>
-          </select>
+          <template v-if="selectedCartProduct.colors.length > 1">
+            <label for="cartProductColor" class="form-label fw-semibold">Color</label>
+            <select id="cartProductColor" v-model="selectedCartProduct.color" class="form-select mb-3">
+              <option v-for="color in selectedCartProduct.colors" :key="color" :value="color">{{ color }}</option>
+            </select>
+          </template>
+
+          <template v-if="selectedCartProduct.volumes.length > 1">
+            <label for="cartProductVolume" class="form-label fw-semibold">Volume</label>
+            <select id="cartProductVolume" v-model="selectedCartProduct.volume" class="form-select mb-3">
+              <option v-for="volume in selectedCartProduct.volumes" :key="volume" :value="volume">{{ volume }}</option>
+            </select>
+          </template>
+
+          <template v-if="selectedCartProduct.scents.length > 1">
+            <label for="cartProductScent" class="form-label fw-semibold">Scent</label>
+            <select id="cartProductScent" v-model="selectedCartProduct.scent" class="form-select mb-3">
+              <option v-for="scent in selectedCartProduct.scents" :key="scent" :value="scent">{{ scent }}</option>
+            </select>
+          </template>
 
           <label for="cartProductQty" class="form-label fw-semibold">Quantity</label>
           <input
