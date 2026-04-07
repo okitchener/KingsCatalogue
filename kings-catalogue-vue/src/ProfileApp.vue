@@ -72,6 +72,9 @@
 
     <CartDrawer
       :cart="cart"
+      :subtotal="subtotal"
+      :tax="tax"
+      :shipping="shipping"
       body-class="d-flex flex-column"
       @increase="increaseQty"
       @decrease="decreaseQty"
@@ -85,12 +88,14 @@ import SiteHeader from "./components/SiteHeader.vue";
 import SiteFooter from "./components/SiteFooter.vue";
 import CartDrawer from "./components/CartDrawer.vue";
 import { useCartStore } from "./helpers/useCartStore.js";
-import { updateCartBadges } from "./helpers/useCartBadge.js";
+import { createCartPageMixin } from "./helpers/useCartPage.js";
 
 const cartStore = useCartStore();
+const cartPageMixin = createCartPageMixin(cartStore);
 
 export default {
   name: "ProfileApp",
+  mixins: [cartPageMixin],
   components: {
     SiteHeader,
     SiteFooter,
@@ -102,34 +107,6 @@ export default {
     },
     currentYear() {
       return new Date().getFullYear();
-    },
-    cart() {
-      return cartStore.cart.value;
-    },
-    cartCount() {
-      return this.cart.reduce((totalQty, item) => totalQty + item.qty, 0);
-    }
-  },
-  watch: {
-    cartCount: {
-      handler(newCount) {
-        updateCartBadges(newCount);
-      },
-      immediate: true
-    }
-  },
-  mounted() {
-    updateCartBadges(this.cartCount);
-  },
-  methods: {
-    increaseQty(item) {
-      cartStore.increaseQty(item);
-    },
-    decreaseQty(item) {
-      cartStore.decreaseQty(item);
-    },
-    removeFromCart(itemToRemove) {
-      cartStore.removeFromCart(itemToRemove);
     }
   }
 };

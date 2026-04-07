@@ -1,13 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 ## [Unreleased]
-2 weeks ago
-
-[2.5] Vue App 2.5
 - Profile page (functionality)
-2 weeks ago
-
-[2.1] Features, fixes and changes in prep for 2.5 app
 - Login Page
 - Account Creation
 - Account login functionality
@@ -21,7 +15,25 @@ All notable changes to this project will be documented in this file.
 - Sales
 - Wishlist/favorite function
 - Order history
-## [3.2.0] -2026-04-6
+
+## [3.5.0]-2026-04-07
+### Added
+- Added a Product model for product data.
+- Added a CartItem model for cart items.
+- Added a CartCollection model to handle cart list logic using composition with CartItem.
+- Added a shared cart page helper to compose repeated cart page logic.
+
+### Changed
+- Changed product data to use Product model objects.
+- Changed cart store logic to use the CartCollection model.
+- Changed CartSummary to use totals passed in as props instead of recalculating them.
+- Commented out local storage cart code for now.
+
+### Fixed
+- Cleaned up duplicated cart logic across the app, checkout, and profile pages.
+- Moved cart add, remove, and quantity logic into models/helpers using composition.
+
+## [3.2.0] -2026-04-06
 ### Added
 - Added support for product-specific option types so items can now define size, color, volume, and scent only where relevant.
 - Added volume and scent options for selected hygiene products to better match the actual item type.

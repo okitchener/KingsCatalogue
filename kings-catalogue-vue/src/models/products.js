@@ -1,3 +1,5 @@
+import { Product } from "./Product.js";
+
 const products = [
   { id: 1, name: "Oxford Button-Down Shirt", price: 59.99, image: "./media/Oxford-Button-Down-Shirt.jpg", description: "Classic cotton oxford for daily wear.", sizes: ["S", "M", "L", "XL"], colors: ["White", "Blue", "Charcoal"], bullets: ["Breathable cotton weave", "Regular fit", "Wrinkle-resistant finish"], category: "Clothing", featured: true },
   { id: 2, name: "Slim Chino Pants", price: 69.99, image: "./media/Slim-Chino-Pants.avif", description: "Modern chinos for office and weekend looks.", sizes: ["30", "32", "34", "36"], colors: ["Khaki", "Navy", "Olive"], bullets: ["Stretch twill fabric", "Tapered leg", "Reinforced stitching"], category: "Clothing", featured: false },
@@ -26,5 +28,6 @@ const products = [
   { id: 25, name: "Training Duffle Bag", price: 72.99, image: "./media/Training-Duffle-Bag.avif", description: "Spacious gym bag with separate shoe compartment.", colors: ["Black", "Gray"], bullets: ["Ventilated shoe pocket", "Adjustable shoulder strap", "Water-resistant base"], category: "Accessories", featured: false }
 ];
 
-export default products;
+// Export product data as Product instances so the app can use model methods everywhere.
+export default Product.fromList(products);
 

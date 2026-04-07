@@ -1,11 +1,12 @@
+import { Product } from "../models/Product.js";
+
+// Normalize incoming data and safely fetch options from the Product model.
 function getOptions(product, key) {
-  if (!Array.isArray(product[key])) {
-    return [];
-  }
-  return product[key];
+  return Product.from(product).getOptions(key);
 }
 
 export function buildSelectedCartProduct(product) {
+  // Build the add-to-cart payload with default option selections.
   const sizes = getOptions(product, "sizes");
   const colors = getOptions(product, "colors");
   const volumes = getOptions(product, "volumes");
@@ -26,6 +27,7 @@ export function buildSelectedCartProduct(product) {
 }
 
 export function buildSelectedProduct(product) {
+  // Build product-details object with defaults for options and qty.
   const sizes = getOptions(product, "sizes");
   const colors = getOptions(product, "colors");
   const volumes = getOptions(product, "volumes");

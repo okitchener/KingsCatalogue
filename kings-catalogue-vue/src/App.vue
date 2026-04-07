@@ -55,7 +55,15 @@
         </section>
       </div>
 
-      <CartDrawer :cart="cart" @increase="increaseQty" @decrease="decreaseQty" @remove="removeFromCart" />
+      <CartDrawer
+        :cart="cart"
+        :subtotal="subtotal"
+        :tax="tax"
+        :shipping="shipping"
+        @increase="increaseQty"
+        @decrease="decreaseQty"
+        @remove="removeFromCart"
+      />
 
       <AddToCartModal :selected-cart-product="selectedCartProduct" @add-to-cart="addToCart" />
       <ProductDetailsModal :selected-product="selectedProduct" @add-to-cart="addToCart" />
@@ -77,15 +85,17 @@ import CartDrawer from "./components/CartDrawer.vue";
 import { useCartStore } from "./helpers/useCartStore.js";
 import { getFilteredProducts } from "./helpers/useCatalogQuery.js";
 import { buildSelectedCartProduct, buildSelectedProduct } from "./helpers/useProductSelection.js";
-import { updateCartBadges } from "./helpers/useCartBadge.js";
+import { createCartPageMixin } from "./helpers/useCartPage.js";
 import { createToastController } from "./helpers/useToast.js";
 import products from "./models/products.js";
 
 const cartStore = useCartStore();
 const toastController = createToastController();
+const cartPageMixin = createCartPageMixin(cartStore);
 
 export default {
   name: "App",
+  mixins: [cartPageMixin],
   components: {
     SiteHeader,
     SiteFooter,
@@ -114,9 +124,6 @@ export default {
     currentYear() {
       return new Date().getFullYear();
     },
-    cart() {
-      return cartStore.cart.value;
-    },
     filteredProducts() {
       const baseFiltered = getFilteredProducts(this.products, this.selectedCategories, this.maxPrice, this.sortBy);
       const normalizedSearch = this.searchTerm.trim().toLowerCase();
@@ -124,21 +131,7 @@ export default {
         return baseFiltered;
       }
       return baseFiltered.filter((product) => product.name.toLowerCase().includes(normalizedSearch));
-    },
-    cartCount() {
-      return this.cart.reduce((totalQty, item) => totalQty + item.qty, 0);
     }
-  },
-  watch: {
-    cartCount: {
-      handler(newCount) {
-        updateCartBadges(newCount);
-      },
-      immediate: true
-    }
-  },
-  mounted() {
-    updateCartBadges(this.cartCount);
   },
   methods: {
     openCartOptions(product) {
@@ -154,15 +147,6 @@ export default {
     },
     showAddedToCartToast(productName) {
       toastController.show(`${productName} was added to the cart`);
-    },
-    increaseQty(item) {
-      cartStore.increaseQty(item);
-    },
-    decreaseQty(item) {
-      cartStore.decreaseQty(item);
-    },
-    removeFromCart(itemToRemove) {
-      cartStore.removeFromCart(itemToRemove);
     }
   },
   beforeUnmount() {

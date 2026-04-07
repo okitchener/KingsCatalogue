@@ -1,27 +1,9 @@
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
+import { CartCollection } from "../models/CartCollection.js";
 
 const CART_KEY = "kingsCart";
 
-function getVariantSignature(item) {
-  return [
-    item.size ?? "",
-    item.color ?? "",
-    item.volume ?? "",
-    item.scent ?? ""
-  ].join("|");
-}
-
-function toCartItem(item) {
-  return {
-    ...item,
-    size: item.size ?? "",
-    color: item.color ?? "",
-    volume: item.volume ?? "",
-    scent: item.scent ?? "",
-    qty: Math.max(1, Number.parseInt(item.qty, 10) || 1)
-  };
-}
-
+/*
 function loadCartFromStorage() {
   const saved = localStorage.getItem(CART_KEY);
   if (!saved) return [];
@@ -29,7 +11,8 @@ function loadCartFromStorage() {
   try {
     const parsed = JSON.parse(saved);
     if (!Array.isArray(parsed)) return [];
-    return parsed.map((item) => toCartItem(item));
+    // Rehydrate plain storage objects into CartItem instances.
+    return parsed.map((item) => CartItem.from(item));
   } catch {
     return [];
   }
@@ -38,57 +21,42 @@ function loadCartFromStorage() {
 function saveCartToStorage(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
+*/
 
 export function useCartStore() {
-  const cart = ref(loadCartFromStorage());
+  // const cart = ref(loadCartFromStorage());
+  const cart = ref([]);
+  const cartCollection = new CartCollection(cart);
 
-  const subtotal = computed(() => cart.value.reduce((sum, item) => sum + item.price * item.qty, 0));
-  const tax = computed(() => subtotal.value * 0.1);
-  const shipping = computed(() => (cart.value.length > 0 ? 15 : 0));
+  const subtotal = computed(() => cartCollection.subtotal);
+  const tax = computed(() => cartCollection.tax);
+  const shipping = computed(() => cartCollection.shipping);
 
   function addToCart(product) {
     if (!product) return;
-
-    const normalized = toCartItem(product);
-    const found = cart.value.find(
-      (cartItem) =>
-        cartItem.id === normalized.id &&
-        getVariantSignature(cartItem) === getVariantSignature(normalized)
-    );
-
-    if (found) {
-      found.qty += normalized.qty;
-      return;
-    }
-
-    cart.value.push(normalized);
+    cartCollection.add(product);
   }
 
   function increaseQty(item) {
-    item.qty += 1;
+    cartCollection.increase(item);
   }
 
   function decreaseQty(item) {
-    if (item.qty > 1) item.qty -= 1;
+    cartCollection.decrease(item);
   }
 
   function removeFromCart(itemToRemove) {
-    cart.value = cart.value.filter(
-      (cartItem) =>
-        !(
-          cartItem.id === itemToRemove.id &&
-          getVariantSignature(cartItem) === getVariantSignature(itemToRemove)
-        )
-    );
+    cartCollection.remove(itemToRemove);
   }
 
-  watch(
-    cart,
-    (newCart) => {
-      saveCartToStorage(newCart);
-    },
-    { deep: true }
-  );
+  // watch(
+  //   cart,
+  //   (newCart) => {
+  //     // Persist cart whenever quantities/options change.
+  //     saveCartToStorage(newCart);
+  //   },
+  //   { deep: true }
+  // );
 
   return {
     cart,

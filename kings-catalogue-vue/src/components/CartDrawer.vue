@@ -6,7 +6,7 @@
     </div>
     <div :class="['offcanvas-body', bodyClass]">
       <CartList :cart="cart" @increase="$emit('increase', $event)" @decrease="$emit('decrease', $event)" @remove="$emit('remove', $event)" />
-      <CartSummary :cart="cart" :show-checkout-button="showCheckoutButton" />
+      <CartSummary :subtotal="subtotal" :tax="tax" :shipping="shipping" :show-checkout-button="showCheckoutButton" />
     </div>
   </div>
 </template>
@@ -24,6 +24,18 @@ export default {
   props: {
     cart: {
       type: Array,
+      required: true
+    },
+    subtotal: {
+      type: Number,
+      required: true
+    },
+    tax: {
+      type: Number,
+      required: true
+    },
+    shipping: {
+      type: Number,
       required: true
     },
     showCheckoutButton: {
